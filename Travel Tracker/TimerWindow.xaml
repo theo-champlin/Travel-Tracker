@@ -21,7 +21,7 @@
       <Image
          Name="WeatherIcon"
          Margin="25, 25, 25, 25"
-         Source="{Binding URI_IMAGE_SOURCE, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+         Source="{Binding WeatherImageSource, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
          Grid.Row="0"
          Grid.Column="1"/>
    </Grid>

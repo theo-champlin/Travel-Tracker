@@ -1,70 +1,41 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Travel_Tracker
 {
+   using Services;
+
    public partial class LocationInput : Window
    {
       public static string Country = String.Empty;
       public static string City = String.Empty;
 
       public ObservableCollection<string> TypeaheadCountryList { get; set; }
+         = new ObservableCollection<string> { };
+
       public ObservableCollection<string> TypeaheadCityList { get; set; }
+         = new ObservableCollection<string> { };
 
       public string CountrySelectionText { get; set; }
+         = String.Empty;
       public string CitySelectionText { get; set; }
-
-      private struct CityInfo
-      {
-         [JsonProperty("country")]
-         public string Country;
-
-         [JsonProperty("name")]
-         public string Name;
-      }
-
-      private List<CityInfo> AllCities;
+         = String.Empty;
 
       public LocationInput()
       {
          InitializeComponent();
-
-         using (var cityListfile = File.OpenText(@"../../CityLookup.json"))
-         using (var jsonTextReader = new JsonTextReader(cityListfile))
-         {
-            AllCities = new JsonSerializer().Deserialize<IEnumerable<CityInfo>>(jsonTextReader).ToList();
-         }
-         TypeaheadCountryList = new ObservableCollection<string>(AllCities.Select(city => city.Country).Distinct());
-         TypeaheadCityList = new ObservableCollection<string> { };
-
-         CountrySelectionText = String.Empty;
-         CitySelectionText = String.Empty;
+         LocationSetService.Instance.PopulateCountryCollection(TypeaheadCountryList);
       }
 
       private void OnCountrySet(object sender, RoutedEventArgs e)
       {
          Country = CountrySelectionText;
-         AllCities.Where(city => city.Country == Country).ToList().ForEach(city => TypeaheadCityList.Add(city.Name));
+         LocationSetService.Instance.PopulateCityCollection(Country, TypeaheadCityList);
       }
 
       private void SetLocationClick(object sender, RoutedEventArgs e)
       {
-         Country = CountrySelectionText;
          City = CitySelectionText;
          Close();
       }

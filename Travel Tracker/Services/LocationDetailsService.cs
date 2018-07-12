@@ -8,6 +8,16 @@ namespace Travel_Tracker.Services
 {
    using Interfaces;
 
+   public class LocationDetailsException : Exception
+   {
+      public LocationDetailsException()
+         : base(ErrorMessage)
+      {
+      }
+
+      private const string ErrorMessage = "Unable to retrieve location details.";
+   }
+
    public class LocationDetailsService : ILocationDetailsService
    {
       public LocationDetailsService(ILocationDetailsFetcher locationDetails)
@@ -20,7 +30,15 @@ namespace Travel_Tracker.Services
          string city)
       {
          var timeZoneResponse = locationDetails.FetchClockDetailsForLocation(country, city);
-         return ParseOffsetFromServiceResponse(timeZoneResponse);
+
+         try
+         {
+            return ParseOffsetFromServiceResponse(timeZoneResponse);
+         }
+         catch (Exception)
+         {
+            throw new LocationDetailsException();
+         }
       }
 
       public string GetWeatherIconUrl(
@@ -28,7 +46,15 @@ namespace Travel_Tracker.Services
          string city)
       {
          var weatherDataResponse = locationDetails.FetchWeatherDetailsForLocation(country, city);
-         return ParseWeatherIconFromServiceResponse(weatherDataResponse);
+
+         try
+         {
+            return ParseWeatherIconFromServiceResponse(weatherDataResponse);
+         }
+         catch (Exception)
+         {
+            throw new LocationDetailsException();
+         }
       }
 
       private ILocationDetailsFetcher locationDetails;
@@ -43,18 +69,11 @@ namespace Travel_Tracker.Services
          public string IconUrl { get; set; }
       }
 
-      private XDocument ParseStream(Stream responseStream)
+      private XDocument ParseStream(Stream rawTarget)
       {
-         using (var xmlReader = new StreamReader(responseStream))
+         using (var xmlReader = new StreamReader(rawTarget))
          {
-            try
-            {
-               return XDocument.Load(xmlReader);
-            }
-            catch (System.Xml.XmlException)
-            {
-               throw new ArgumentException("Could not parse stream argument.");
-            }
+            return XDocument.Load(xmlReader);
          }
       }
 
@@ -67,7 +86,7 @@ namespace Travel_Tracker.Services
             select new TimeZone
             {
                UTCOffset = locationInfo.Element("utcOffset").Value
-            }).First().UTCOffset;
+            }).FirstOrDefault().UTCOffset;
 
          return Int32.Parse(
             timeZoneOffset,

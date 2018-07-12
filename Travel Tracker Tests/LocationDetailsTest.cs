@@ -38,12 +38,45 @@ namespace Travel_Tracker_Tests
       [TestMethod]
       public void GetTimezoneOffSet_ParsesEmptyResponse()
       {
-         const int expectedOffset = 0;
-         string validResponseStream = string.Empty;
+         TestTimezoneErrorCase(string.Empty);
+      }
 
-         var locationDetails = GetLocationDetailsWithMockedTimeZone(validResponseStream);
-         var offset = locationDetails.GetTimezoneOffSet(string.Empty, string.Empty);
-         Assert.AreEqual(offset, expectedOffset);
+      [TestMethod]
+      public void GetTimezoneOffSet_ParsesResponseMissingTimezone()
+      {
+         const string InvalidResponseStream = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><data/>";
+         TestTimezoneErrorCase(InvalidResponseStream);
+      }
+
+      [TestMethod]
+      public void GetTimezoneOffSet_ParsesResponseMissingOffset()
+      {
+         const string InvalidResponseStream =
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<data>" +
+               "<time_zone>" +
+                  "<localtime>2018-07-11 23:47</localtime>" +
+                  "<zone>Europe/Paris</zone>" +
+               "</time_zone>" +
+            "</data>";
+         TestTimezoneErrorCase(InvalidResponseStream);
+      }
+
+      private void TestTimezoneErrorCase(string streamInput)
+      {
+         var locationDetails = GetLocationDetailsWithMockedTimeZone(streamInput);
+
+         bool exceptionCaught = false;
+         try
+         {
+            locationDetails.GetTimezoneOffSet(string.Empty, string.Empty);
+         }
+         catch (LocationDetailsException)
+         {
+            exceptionCaught = true;
+         }
+
+         Assert.IsTrue(exceptionCaught);
       }
 
       private static ILocationDetailsService GetLocationDetailsWithMockedWeather(

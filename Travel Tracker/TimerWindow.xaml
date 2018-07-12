@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Travel_Tracker"
         mc:Ignorable="d"
         Title="Travel Tracker"
-        Height="150"
-        Width="315"
+        Height="100"
+        Width="300"
         AllowsTransparency="True"
         WindowStyle="None"
         BorderThickness="5"
@@ -17,19 +17,36 @@
    </Window.Background>
    <Grid>
       <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="5*"/>
          <ColumnDefinition Width="2*"/>
-         <ColumnDefinition Width="1*"/>
       </Grid.ColumnDefinitions>
-      <TextBlock
-         FontSize="50"
-         Name="dateText"
+
+      <Grid
          Grid.Row="0"
-         Grid.Column="0"
-         HorizontalAlignment="Center"
-         VerticalAlignment="Center"/>
+         Grid.Column="0">
+         <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
+         </Grid.RowDefinitions>
+         <TextBlock
+            Name="location"
+            FontSize="12"
+            Margin="2, 2, 0, 0"
+            Grid.Row="0"
+            Grid.Column="0"/>
+         <TextBlock
+            Name="dateText"
+            FontSize="40"
+            FontWeight="Bold"
+            Grid.Row="1"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+      </Grid>
       <Image
          Name="WeatherIcon"
-         Margin="25, 25, 25, 25"
+         Margin="15, 15, 15, 15"
          Source="{Binding WeatherImageSource, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
          Grid.Row="0"
          Grid.Column="1"/>

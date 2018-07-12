@@ -22,6 +22,10 @@ namespace Travel_Tracker
          LocationInput locationWindow = new LocationInput();
          locationWindow.ShowDialog();
 
+         MouseLeftButtonDown += delegate { DragMove(); };
+
+         location.Text = LocationInput.City + ", " + LocationInput.Country;
+
          offset = locationDetails.GetTimezoneOffSet(
             LocationInput.Country,
             LocationInput.City);

@@ -77,6 +77,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interfaces\ICityFetchService.cs" />
+    <Compile Include="Interfaces\ILocationDetailsFetcher.cs" />
+    <Compile Include="Interfaces\ILocationDetailsService.cs" />
+    <Compile Include="Interfaces\ILocationSetService.cs" />
+    <Compile Include="Models\CityInfo.cs" />
+    <Compile Include="Services\CityFetchService.cs" />
+    <Compile Include="Services\LocationDetailsFetcher.cs" />
     <Compile Include="Services\LocationDetailsService.cs" />
     <Compile Include="Services\LocationSetService.cs" />
     <Compile Include="LocationInput.xaml.cs">
@@ -90,7 +97,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Settings.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="TimerWindow.xaml.cs">
       <DependentUpon>TimerWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

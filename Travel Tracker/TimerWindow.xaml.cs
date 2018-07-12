@@ -5,6 +5,7 @@ using System.Windows.Controls;
 
 namespace Travel_Tracker
 {
+   using Interfaces;
    using Services;
 
    /// <summary>
@@ -14,9 +15,6 @@ namespace Travel_Tracker
    {
       public string WeatherImageSource { get; set; }
 
-      private DispatcherTimer timer;
-      private int offset;
-
       public TimerWindow()
       {
          InitializeComponent();
@@ -24,11 +22,11 @@ namespace Travel_Tracker
          LocationInput locationWindow = new LocationInput();
          locationWindow.ShowDialog();
 
-         offset = LocationDetailsService.GetTimezoneOffSet(
+         offset = locationDetails.GetTimezoneOffSet(
             LocationInput.Country,
             LocationInput.City);
 
-         WeatherImageSource = LocationDetailsService.GetWeatherIconUrl(
+         WeatherImageSource = locationDetails.GetWeatherIconUrl(
             LocationInput.Country,
             LocationInput.City);
          WeatherIcon.GetBindingExpression(Image.SourceProperty).UpdateTarget();
@@ -41,6 +39,13 @@ namespace Travel_Tracker
             delegate { TimerElapsed(); },
             Dispatcher);
       }
+
+      private DispatcherTimer timer;
+
+      private int offset;
+
+      private ILocationDetailsService locationDetails
+         = new LocationDetailsService(new LocationDetailsFetcher());
 
       private void SetTime()
       {

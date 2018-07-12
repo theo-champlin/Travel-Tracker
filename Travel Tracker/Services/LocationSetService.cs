@@ -6,10 +6,11 @@ using System.Linq;
 
 namespace Travel_Tracker.Services
 {
-   public class LocationSetService
-   {
-      public static LocationSetService Instance { get { return ControllerInstance.Value; } }
+   using Models;
+   using Interfaces;
 
+   public class LocationSetService : ILocationSetService
+   {
       /// <summary>
       /// Populates the "countries" argument with a collection of all countries this application
       /// considers valid.
@@ -44,34 +45,20 @@ namespace Travel_Tracker.Services
             throw new ArgumentNullException("\"cities\" argument must not be null");
          }
 
-         var cityCollection = AllCities.Where(city => city.Country == country).Select(city => city.Name);
+         var cityCollection = AllCities
+            .Where(city => city.Country == country)
+            .Select(city => city.Name);
          foreach (var city in cityCollection)
          {
             cities.Add(city);
          }
       }
 
-      private class CityInfo
+      public LocationSetService(ICityFetchService cityFetcher)
       {
-         [JsonProperty("country")]
-         public string Country = "";
-
-         [JsonProperty("name")]
-         public string Name = "";
-      }
-
-      private LocationSetService()
-      {
-         using (var cityListfile = File.OpenText(Settings.AppSettings.CityLookupLocation))
-         using (var jsonTextReader = new JsonTextReader(cityListfile))
-         {
-            AllCities = new JsonSerializer().Deserialize<IEnumerable<CityInfo>>(jsonTextReader).ToList();
-         }
+         AllCities = cityFetcher.GetCities();
       }
 
       private List<CityInfo> AllCities;
-
-      private static readonly Lazy<LocationSetService> ControllerInstance =
-        new Lazy<LocationSetService>(() => new LocationSetService());
    }
 }

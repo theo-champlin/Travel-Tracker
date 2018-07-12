@@ -5,6 +5,7 @@ using System.Windows;
 namespace Travel_Tracker
 {
    using Services;
+   using Interfaces;
 
    public partial class LocationInput : Window
    {
@@ -25,13 +26,15 @@ namespace Travel_Tracker
       public LocationInput()
       {
          InitializeComponent();
-         LocationSetService.Instance.PopulateCountryCollection(TypeaheadCountryList);
+         locationSetter.PopulateCountryCollection(TypeaheadCountryList);
       }
+
+      private ILocationSetService locationSetter = new LocationSetService(new CityFetchService());
 
       private void OnCountrySet(object sender, RoutedEventArgs e)
       {
          Country = CountrySelectionText;
-         LocationSetService.Instance.PopulateCityCollection(Country, TypeaheadCityList);
+         locationSetter.PopulateCityCollection(Country, TypeaheadCityList);
       }
 
       private void SetLocationClick(object sender, RoutedEventArgs e)

@@ -5,7 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Travel_Tracker"
         mc:Ignorable="d"
-        Title="Travel Tracker" Height="150" Width="315">
+        Title="Travel Tracker"
+        Height="150"
+        Width="315"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        BorderThickness="5"
+        BorderBrush="Black">
+   <Window.Background>
+      <SolidColorBrush Opacity="0.75" Color="White"/>
+   </Window.Background>
    <Grid>
       <Grid.ColumnDefinitions>
          <ColumnDefinition Width="2*"/>

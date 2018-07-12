@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
 
 namespace Travel_Tracker_Tests
 {
+   using Travel_Tracker.Interfaces;
+   using Travel_Tracker.Models;
    using Travel_Tracker.Services;
 
    [TestClass]
@@ -21,7 +24,7 @@ namespace Travel_Tracker_Tests
          };
 
          var countries = new List<string> { };
-         LocationSetService.Instance.PopulateCountryCollection(countries);
+         locationSetter.PopulateCountryCollection(countries);
 
          Assert.AreEqual(countries.Count, expectedCountryList.Count);
 
@@ -36,13 +39,13 @@ namespace Travel_Tracker_Tests
       {
          var expectedCities = new List<string>
          {
-            "Yerres",
-            "Toulouse",
-            "Paris",
-            "La Defense"
+            "Grand Rapids",
+            "San Francisco",
+            "Las Vegas",
+            "Anchorage"
          };
 
-         GenerateCityCollection_TestHelper("France", expectedCities);
+         GenerateCityCollection_TestHelper("United States", expectedCities);
       }
 
       [TestMethod]
@@ -51,12 +54,33 @@ namespace Travel_Tracker_Tests
          GenerateCityCollection_TestHelper("Africa", new List<string> { });
       }
 
+      private ILocationSetService locationSetter = GetLocationSetter();
+
+      private static ILocationSetService GetLocationSetter()
+      {
+         var citySubset = new List<CityInfo>
+         {
+            new CityInfo { Country = "Australia", Name = "Perth" },
+            new CityInfo { Country = "France", Name = "Toulouse" },
+            new CityInfo { Country = "South Africa", Name = "Wolmaransstad" },
+            new CityInfo { Country = "Zimbabwe", Name = "Epworth" },
+            new CityInfo { Country = "United States", Name = "Grand Rapids" },
+            new CityInfo { Country = "United States", Name = "San Francisco" },
+            new CityInfo { Country = "United States", Name = "Las Vegas" },
+            new CityInfo { Country = "United States", Name = "Anchorage" }
+         };
+         var cityFetcher = Substitute.For<ICityFetchService>();
+         cityFetcher.GetCities().Returns(citySubset);
+
+         return new LocationSetService(cityFetcher);
+      }
+
       private void GenerateCityCollection_TestHelper(
          string country,
          ICollection<string> expectedCities)
       {
          var cities = new List<string> { };
-         LocationSetService.Instance.PopulateCityCollection(country, cities);
+         locationSetter.PopulateCityCollection(country, cities);
 
          Assert.AreEqual(cities.Count, expectedCities.Count);
 

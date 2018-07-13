@@ -71,23 +71,83 @@ namespace Travel_Tracker_Tests
          GetTimezoneOffSet_TestError(InvalidResponseStream);
       }
 
+
+      [TestMethod]
+      public void GetLocalWeatherCode_ParsesValidResponse()
+      {
+         const int expectedWeatherCode = 389;
+         string validResponseStream =
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<data>" +
+               "<request>" +
+                  "<type>City</type>" +
+                  "<query>Toulouse, France</query>" +
+               "</request>" +
+               "<current_condition>" +
+                  "<observation_time>08:53 PM</observation_time>" +
+                  "<temp_C>26</temp_C>" +
+                  "<temp_F>79</temp_F>" +
+                  $"<weatherCode>{expectedWeatherCode}</weatherCode>" +
+                  "<weatherIconUrl>" +
+                     "<![CDATA[http://sample.icon/image.png]]></weatherIconUrl>" +
+                  "<weatherDesc>" +
+                     "<![CDATA[Light Rain With Thunderstorm]]>" +
+                  "</weatherDesc>" +
+               "</current_condition>" +
+            "</data>";
+
+         var locationDetails = GetLocationDetailsWithMockedWeather(validResponseStream);
+         var offset = locationDetails.GetLocalWeatherCode(string.Empty, string.Empty);
+         Assert.AreEqual(offset, expectedWeatherCode);
+      }
+
+      [TestMethod]
+      [ExpectedException(
+         typeof(LocationDetailsException),
+         "Expected exception when weather info is empty.")]
+      public void GetLocalWeatherCode_ParsesEmptyResponse()
+      {
+         GetLocalWeatherCode_TestError(string.Empty);
+      }
+
+      [TestMethod]
+      [ExpectedException(
+         typeof(LocationDetailsException),
+         "Expected exception when weather information is not available.")]
+      public void GetLocalWeatherCode_ParsesResponseMissingTimezone()
+      {
+         const string InvalidResponseStream = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><data/>";
+         GetLocalWeatherCode_TestError(InvalidResponseStream);
+      }
+
+      [TestMethod]
+      [ExpectedException(
+         typeof(LocationDetailsException),
+         "Expected exception when weather code is not available.")]
+      public void GetLocalWeatherCode_ParsesResponseMissingOffset()
+      {
+         const string InvalidResponseStream =
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<data>" +
+               "<request>" +
+                  "<type>City</type>" +
+                  "<query>Toulouse, France</query>" +
+               "</request>" +
+               "<current_condition></current_condition>" +
+            "</data>";
+         GetLocalWeatherCode_TestError(InvalidResponseStream);
+      }
+
       private void GetTimezoneOffSet_TestError(string streamInput)
       {
          var locationDetails = GetLocationDetailsWithMockedTimeZone(streamInput);
          locationDetails.GetTimezoneOffSet(string.Empty, string.Empty);
       }
 
-      private static ILocationDetailsService GetLocationDetailsWithMockedWeather(
-         string mockResponse)
+      private void GetLocalWeatherCode_TestError(string streamInput)
       {
-         var detailFetcher = Substitute.For<ILocationDetailsFetcher>();
-
-         detailFetcher.FetchWeatherDetailsForLocation(
-            Arg.Any<string>(),
-            Arg.Any<string>())
-            .Returns(GetMockResponseStream(mockResponse));
-
-         return new LocationDetailsService(detailFetcher);
+         var locationDetails = GetLocationDetailsWithMockedWeather(streamInput);
+         locationDetails.GetLocalWeatherCode(string.Empty, string.Empty);
       }
 
       private static ILocationDetailsService GetLocationDetailsWithMockedTimeZone(
@@ -96,6 +156,19 @@ namespace Travel_Tracker_Tests
          var detailFetcher = Substitute.For<ILocationDetailsFetcher>();
 
          detailFetcher.FetchClockDetailsForLocation(
+            Arg.Any<string>(),
+            Arg.Any<string>())
+            .Returns(GetMockResponseStream(mockResponse));
+
+         return new LocationDetailsService(detailFetcher);
+      }
+
+      private static ILocationDetailsService GetLocationDetailsWithMockedWeather(
+         string mockResponse)
+      {
+         var detailFetcher = Substitute.For<ILocationDetailsFetcher>();
+
+         detailFetcher.FetchWeatherDetailsForLocation(
             Arg.Any<string>(),
             Arg.Any<string>())
             .Returns(GetMockResponseStream(mockResponse));

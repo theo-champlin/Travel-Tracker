@@ -32,6 +32,9 @@ namespace Travel_Tracker.Services
          public static WeatherConditionIcon Rain
             = new WeatherConditionIcon("rain_image");
 
+         public static WeatherConditionIcon ThunderStorm
+            = new WeatherConditionIcon("thunder_storm_image");
+
          public static WeatherConditionIcon Cloudy
             = new WeatherConditionIcon(
                "cloudy_image",
@@ -41,9 +44,6 @@ namespace Travel_Tracker.Services
             = new WeatherConditionIcon(
                "partly_cloudy_image",
                "night_cloudy_image");
-
-         public static WeatherConditionIcon ThunderStorm
-            = new WeatherConditionIcon("thunder_storm_image");
 
          public static WeatherConditionIcon Clear
             = new WeatherConditionIcon(
@@ -63,7 +63,7 @@ namespace Travel_Tracker.Services
          }
       }
 
-      private Dictionary<int, WeatherConditionIcon> weatherCodeLookup =
+      private static IReadOnlyDictionary<int, WeatherConditionIcon> weatherCodeLookup =
          new Dictionary<int, WeatherConditionIcon>()
          {
             { 395, WeatherConditionIcon.SnowImage },

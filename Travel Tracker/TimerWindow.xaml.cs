@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Windows.Threading;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Threading;
 
 namespace Travel_Tracker
 {
    using Interfaces;
    using Services;
-   using System.Windows.Data;
 
    /// <summary>
    /// Interaction logic for TimerWindow.xaml

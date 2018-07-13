@@ -7,7 +7,6 @@ using System.Xml.Linq;
 namespace Travel_Tracker.Services
 {
    using Interfaces;
-   using System.Collections.Generic;
 
    public class LocationDetailsService : ILocationDetailsService
    {

@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Clock.ico</ApplicationIcon>
+    <ApplicationIcon>Res\Clock.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -84,6 +84,8 @@
     <Compile Include="Interfaces\ILocationDetailsFetcher.cs" />
     <Compile Include="Interfaces\ILocationDetailsService.cs" />
     <Compile Include="Interfaces\ILocationSetService.cs" />
+    <Compile Include="Interfaces\ITimerUtility.cs" />
+    <Compile Include="Interfaces\IResourceLookup.cs" />
     <Compile Include="Models\CityInfo.cs" />
     <Compile Include="Services\CityFetchService.cs" />
     <Compile Include="Services\LocationDetailsFetcher.cs" />
@@ -101,6 +103,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Settings.cs" />
+    <Compile Include="Services\ResourceLookup.cs" />
+    <Compile Include="Services\TimerUtility.cs" />
     <Compile Include="TimerWindow.xaml.cs">
       <DependentUpon>TimerWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -128,13 +132,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Resource Include="Clock.ico" />
     <Content Include="Res\appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Res\CityLookup.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Res\Clock.ico" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

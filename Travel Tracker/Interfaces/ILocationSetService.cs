@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Travel_Tracker.Interfaces
 {
@@ -19,6 +20,7 @@ namespace Travel_Tracker.Interfaces
       /// The country for which we want to retrieve a collection of contained cities.
       /// </param>
       /// <param name="cities"></param>
+      /// <exception cref="ArgumentNullException"></exception>
       void PopulateCityCollection(string country, ICollection<string> cities);
    }
 }

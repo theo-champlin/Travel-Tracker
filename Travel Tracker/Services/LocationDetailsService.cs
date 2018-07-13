@@ -7,16 +7,7 @@ using System.Xml.Linq;
 namespace Travel_Tracker.Services
 {
    using Interfaces;
-
-   public class LocationDetailsException : Exception
-   {
-      public LocationDetailsException()
-         : base(ErrorMessage)
-      {
-      }
-
-      private const string ErrorMessage = "Unable to retrieve location details.";
-   }
+   using System.Collections.Generic;
 
    public class LocationDetailsService : ILocationDetailsService
    {
@@ -41,7 +32,7 @@ namespace Travel_Tracker.Services
          }
       }
 
-      public string GetWeatherIconUrl(
+      public int GetLocalWeatherCode(
          string country,
          string city)
       {
@@ -49,7 +40,7 @@ namespace Travel_Tracker.Services
 
          try
          {
-            return ParseWeatherIconFromServiceResponse(weatherDataResponse);
+            return ParseWeatherCodeFromServiceResponse(weatherDataResponse);
          }
          catch (Exception)
          {
@@ -66,7 +57,7 @@ namespace Travel_Tracker.Services
 
       private struct Weather
       {
-         public string IconUrl { get; set; }
+         public int IconCode { get; set; }
       }
 
       private XDocument ParseStream(Stream rawTarget)
@@ -93,15 +84,20 @@ namespace Travel_Tracker.Services
             NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign);
       }
 
-      private string ParseWeatherIconFromServiceResponse(Stream localWeatherResponse)
+      private int ParseWeatherCodeFromServiceResponse(Stream localWeatherResponse)
       {
          var parsedWeatherData = ParseStream(localWeatherResponse);
 
-         return (from locationInfo in parsedWeatherData.Descendants("current_condition")
-            select new Weather
-            {
-               IconUrl = locationInfo.Element("weatherIconUrl").Value
-            }).First().IconUrl;
+         string weatherCode =
+            (from locationInfo in parsedWeatherData.Descendants("current_condition")
+             select new TimeZone
+             {
+                UTCOffset = locationInfo.Element("weatherCode").Value
+             }).FirstOrDefault().UTCOffset;
+
+         return Int32.Parse(
+            weatherCode,
+            NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign);
       }
    }
 }

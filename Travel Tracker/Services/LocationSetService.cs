@@ -1,7 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace Travel_Tracker.Services
@@ -11,11 +9,11 @@ namespace Travel_Tracker.Services
 
    public class LocationSetService : ILocationSetService
    {
-      /// <summary>
-      /// Populates the "countries" argument with a collection of all countries this application
-      /// considers valid.
-      /// </summary>
-      /// <param name="countries"></param>
+      public LocationSetService(ICityFetchService cityFetcher)
+      {
+         AllCities = cityFetcher.GetCities();
+      }
+
       public void PopulateCountryCollection(ICollection<string> countries)
       {
          if (countries == null)
@@ -30,14 +28,6 @@ namespace Travel_Tracker.Services
          }
       }
 
-      /// <summary>
-      /// Populates the "cities" argument with a collection of all cities in the given country this
-      /// application considers valid.
-      /// </summary>
-      /// <param name="country">
-      /// The country for which we want to retrieve a collection of contained cities.
-      /// </param>
-      /// <param name="cities"></param>
       public void PopulateCityCollection(string country, ICollection<string> cities)
       {
          if (cities == null)
@@ -52,11 +42,6 @@ namespace Travel_Tracker.Services
          {
             cities.Add(city);
          }
-      }
-
-      public LocationSetService(ICityFetchService cityFetcher)
-      {
-         AllCities = cityFetcher.GetCities();
       }
 
       private List<CityInfo> AllCities;

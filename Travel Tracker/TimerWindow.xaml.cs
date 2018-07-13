@@ -7,77 +7,83 @@ namespace Travel_Tracker
 {
    using Interfaces;
    using Services;
+   using System.Windows.Data;
 
    /// <summary>
    /// Interaction logic for TimerWindow.xaml
    /// </summary>
    public partial class TimerWindow : Window
    {
-      public string WeatherImageSource { get; set; }
-
       public TimerWindow()
       {
          InitializeComponent();
 
          LocationInput locationWindow = new LocationInput();
          locationWindow.ShowDialog();
-
-         MouseLeftButtonDown += delegate { DragMove(); };
-
          location.Text = LocationInput.City + ", " + LocationInput.Country;
 
-         offset = locationDetails.GetTimezoneOffSet(
-            LocationInput.Country,
-            LocationInput.City);
+         StartTimeTracking();
 
-         WeatherImageSource = locationDetails.GetWeatherIconUrl(
+         // This needs to happen after the time is set because the local time is used to decide
+         // which weather icon to display.
+         SetWeatherIcon();
+
+         MouseLeftButtonDown += delegate { DragMove(); };
+      }
+
+      private DispatcherTimer timer;
+
+      private ITimerUtility timerUtil;
+
+      private ILocationDetailsService locationDetails
+         = new LocationDetailsService(new LocationDetailsFetcher());
+
+      private void StartTimeTracking()
+      {
+         timerUtil = new TimerUtility(
+            locationDetails,
             LocationInput.Country,
             LocationInput.City);
-         WeatherIcon.GetBindingExpression(Image.SourceProperty).UpdateTarget();
 
          SetTime();
 
          timer = new DispatcherTimer(
-            GetClockUpdateInterval(),
+            timerUtil.GetMinuteUpdateInterval(DateTime.Now),
             DispatcherPriority.Normal,
             delegate { TimerElapsed(); },
             Dispatcher);
       }
 
-      private DispatcherTimer timer;
-
-      private int offset;
-
-      private ILocationDetailsService locationDetails
-         = new LocationDetailsService(new LocationDetailsFetcher());
-
       private void SetTime()
       {
-         dateText.Text = DateTime.UtcNow.AddHours(offset).ToString("h:mm tt");
+         dateText.Text = timerUtil.GetFormattedLocationTime(DateTime.UtcNow);
       }
 
       private void TimerElapsed()
       {
-         timer.Interval = GetClockUpdateInterval();
-         timer.Start();
          SetTime();
+
+         timer.Interval = timerUtil.GetMinuteUpdateInterval(DateTime.Now);
+         timer.Start();
       }
 
-      private TimeSpan GetClockUpdateInterval()
+      private void SetWeatherIcon()
       {
-         const int SECONDS_IN_MINUTE = 60;
-         const int MILLISECOND_IN_SECOND = 1000;
+         var weatherCode = locationDetails.GetLocalWeatherCode(
+           LocationInput.Country,
+           LocationInput.City);
 
-         // To ensure the update happens after the minute updates, not right before.
-         const int UPDATE_DELAY_WINDOW = 15;
+         IResourceLookup weatherResourceLookup = new ResourceLookup();
+         var iconResource = weatherResourceLookup.FindWeatherIcon(
+            weatherCode,
+            timerUtil.GetLocationTime(DateTime.UtcNow));
 
-         var now = DateTime.Now;
-         var millisecondsUntilUpdate =
-            (SECONDS_IN_MINUTE - now.Second)
-            * MILLISECOND_IN_SECOND - now.Millisecond
-            + UPDATE_DELAY_WINDOW;
+         var binding = new Binding
+         {
+            Source = iconResource
+         };
 
-         return TimeSpan.FromMilliseconds(millisecondsUntilUpdate);
+         WeatherIcon.SetBinding(ContentProperty, binding);
       }
    }
 }

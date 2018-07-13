@@ -28,16 +28,15 @@ namespace Travel_Tracker.Interfaces
          string city);
 
       /// <summary>
-      /// Attempts to fetch the path to an icon representing the current weather for the given
-      /// city.
+      /// Attempts to fetch the weather code representing the current weather for the given city.
       /// </summary>
       /// <returns>
-      /// Path to an icon representing the current weather of the supplied location
+      /// Integer code for the current local weather conditions
       /// </returns>
       /// <exception cref="LocationDetailsException">
       /// Throws if there is an error retrieving or parsing location details.
       /// </exception>
-      string GetWeatherIconUrl(
+      int GetLocalWeatherCode(
          string country,
          string city);
    }

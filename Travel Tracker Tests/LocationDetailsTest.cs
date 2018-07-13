@@ -36,19 +36,28 @@ namespace Travel_Tracker_Tests
       }
 
       [TestMethod]
+      [ExpectedException(
+         typeof(LocationDetailsException),
+         "Expected exception when time zone info is empty.")]
       public void GetTimezoneOffSet_ParsesEmptyResponse()
       {
-         TestTimezoneErrorCase(string.Empty);
+         GetTimezoneOffSet_TestError(string.Empty);
       }
 
       [TestMethod]
+      [ExpectedException(
+         typeof(LocationDetailsException),
+         "Expected exception when time zone information is not available.")]
       public void GetTimezoneOffSet_ParsesResponseMissingTimezone()
       {
          const string InvalidResponseStream = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><data/>";
-         TestTimezoneErrorCase(InvalidResponseStream);
+         GetTimezoneOffSet_TestError(InvalidResponseStream);
       }
 
       [TestMethod]
+      [ExpectedException(
+         typeof(LocationDetailsException),
+         "Expected exception when offset is not available.")]
       public void GetTimezoneOffSet_ParsesResponseMissingOffset()
       {
          const string InvalidResponseStream =
@@ -59,24 +68,13 @@ namespace Travel_Tracker_Tests
                   "<zone>Europe/Paris</zone>" +
                "</time_zone>" +
             "</data>";
-         TestTimezoneErrorCase(InvalidResponseStream);
+         GetTimezoneOffSet_TestError(InvalidResponseStream);
       }
 
-      private void TestTimezoneErrorCase(string streamInput)
+      private void GetTimezoneOffSet_TestError(string streamInput)
       {
          var locationDetails = GetLocationDetailsWithMockedTimeZone(streamInput);
-
-         bool exceptionCaught = false;
-         try
-         {
-            locationDetails.GetTimezoneOffSet(string.Empty, string.Empty);
-         }
-         catch (LocationDetailsException)
-         {
-            exceptionCaught = true;
-         }
-
-         Assert.IsTrue(exceptionCaught);
+         locationDetails.GetTimezoneOffSet(string.Empty, string.Empty);
       }
 
       private static ILocationDetailsService GetLocationDetailsWithMockedWeather(
@@ -86,7 +84,8 @@ namespace Travel_Tracker_Tests
 
          detailFetcher.FetchWeatherDetailsForLocation(
             Arg.Any<string>(),
-            Arg.Any<string>()).Returns(GetMockResponseStream(mockResponse));
+            Arg.Any<string>())
+            .Returns(GetMockResponseStream(mockResponse));
 
          return new LocationDetailsService(detailFetcher);
       }
@@ -98,7 +97,8 @@ namespace Travel_Tracker_Tests
 
          detailFetcher.FetchClockDetailsForLocation(
             Arg.Any<string>(),
-            Arg.Any<string>()).Returns(GetMockResponseStream(mockResponse));
+            Arg.Any<string>())
+            .Returns(GetMockResponseStream(mockResponse));
 
          return new LocationDetailsService(detailFetcher);
       }

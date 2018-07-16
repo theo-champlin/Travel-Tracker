@@ -84,5 +84,10 @@ namespace Travel_Tracker
 
          WeatherIcon.SetBinding(ContentProperty, binding);
       }
+
+      private void OnClose(object sender, RoutedEventArgs e)
+      {
+         App.Current.Shutdown();
+      }
    }
 }

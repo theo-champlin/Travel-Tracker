@@ -12,6 +12,41 @@ namespace Travel_Tracker_Tests
    public class TimerUtilityTest
    {
       [TestMethod]
+      public void GetLocationTime_NoOffset()
+      {
+         const int TargetLocationOffset = 0;
+         const string UTCInitialTime = "2005-01-01T12:00:00";
+         GetLocationTime_TestHelper(
+            TargetLocationOffset,
+            UTCInitialTime,
+            UTCInitialTime);
+      }
+
+      [TestMethod]
+      public void GetLocationTime_DayOverflow()
+      {
+         const int TargetLocationOffset = 5;
+         const string UTCInitialTime = "2005-04-30T20:00:00";
+         const string ExpectedFormattedResult = "2005-05-01T01:00:00";
+         GetLocationTime_TestHelper(
+            TargetLocationOffset,
+            UTCInitialTime,
+            ExpectedFormattedResult);
+      }
+
+      [TestMethod]
+      public void GetLocationTime_DayUnderflow()
+      {
+         const int TargetLocationOffset = -8;
+         const string UTCInitialTime = "2005-01-01T06:00:00";
+         const string ExpectedFormattedResult = "2004-12-31T22:00:00";
+         GetLocationTime_TestHelper(
+            TargetLocationOffset,
+            UTCInitialTime,
+            ExpectedFormattedResult);
+      }
+
+      [TestMethod]
       public void GetFormattedLocationTime_NoOffset()
       {
          const int TargetLocationOffset = 0;
@@ -71,10 +106,33 @@ namespace Travel_Tracker_Tests
             TimeSpan.FromMilliseconds(1).Ticks);
       }
 
+      private void GetLocationTime_TestHelper(
+         int offset,
+         string formattedInputTime,
+         string expectedFormattedResult)
+      {
+         ITimerUtility timerInTest = GetInitializedTimer(offset);
+
+         var inputDateTime = DateTime.Parse(formattedInputTime);
+         var targetLocationTime = timerInTest.GetLocationTime(inputDateTime);
+
+         var expectedTargetLocationTime = DateTime.Parse(expectedFormattedResult);
+         Assert.AreEqual(expectedTargetLocationTime, targetLocationTime);
+      }
+
       private void GetFormattedLocationTime_TestHelper(
          int offset,
          string formattedInputTime,
          string expectedFormattedResult)
+      {
+         ITimerUtility timerInTest = GetInitializedTimer(offset);
+
+         var inputDateTime = DateTime.Parse(formattedInputTime);
+         var formattedTime = timerInTest.GetFormattedLocationTime(inputDateTime);
+         Assert.AreEqual(expectedFormattedResult, formattedTime);
+      }
+
+      private ITimerUtility GetInitializedTimer(int offset)
       {
          var mockedLocationDetails = Substitute.For<ILocationDetailsService>();
          mockedLocationDetails.GetTimezoneOffSet(
@@ -82,14 +140,10 @@ namespace Travel_Tracker_Tests
             Arg.Any<string>())
             .Returns(offset);
 
-         ITimerUtility timerInTest = new TimerUtility(
+         return new TimerUtility(
             mockedLocationDetails,
             string.Empty,
             string.Empty);
-
-         var inputDateTime = DateTime.Parse(formattedInputTime);
-         var formattedTime = timerInTest.GetFormattedLocationTime(inputDateTime);
-         Assert.AreEqual(expectedFormattedResult, formattedTime);
       }
 
       private void GetMinuteUpdateInterval_TestHelper(

@@ -108,6 +108,7 @@ namespace Travel_Tracker.Services
             { 185, WeatherConditionIcon.Rain },
             { 182, WeatherConditionIcon.SnowImage },
             { 179, WeatherConditionIcon.SnowImage },
+            { 176, WeatherConditionIcon.Rain },
             { 143, WeatherConditionIcon.Cloudy },
             { 122, WeatherConditionIcon.Cloudy },
             { 119, WeatherConditionIcon.Cloudy },

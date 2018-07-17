@@ -1,0 +1,50 @@
+﻿<Window x:Class="TravelTracker.LocationInput"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
+        xmlns:local="clr-namespace:TravelTracker"
+        mc:Ignorable="d"
+        Title="Enter a Location" Height="130" Width="425">
+
+   <StackPanel>
+      <Grid>
+         <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+         </Grid.RowDefinitions>
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+         </Grid.ColumnDefinitions>
+
+         <Label Grid.Row="0" Grid.Column="0" Content="Country:"/>
+         <TextBox
+            Margin="5,0,5,5"
+            Grid.Row="1"
+            Grid.Column="0"
+            Height="25"
+            Name="CountrySelector"
+            LostFocus="OnCountrySet"
+            Text="{Binding CountrySelectionText, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}"
+            behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TypeaheadCountryList, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+            behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="CurrentCultureIgnoreCase">
+         </TextBox>
+
+         <Label Grid.Row="0" Grid.Column="1" Content="City:"/>
+         <TextBox
+            Margin="5,0,5,5"
+            Grid.Row="1"
+            Grid.Column="1"
+            Height="25"
+            Name="CitySelector"
+            Text="{Binding CitySelectionText, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}"
+            behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TypeaheadCityList, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+            behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="CurrentCultureIgnoreCase">
+         </TextBox>
+      </Grid>
+
+      <Button Margin="5" Width="100" Height="25" Click="SetLocationClick">Set Time</Button>
+   </StackPanel>
+</Window>

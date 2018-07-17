@@ -52,6 +52,8 @@
                   <Border
                      x:Name="Bd"
                      Background="{TemplateBinding Background}"
+                      BorderBrush="Black"
+                      BorderThickness="0, 0, 0, 1"
                      SnapsToDevicePixels="True"
                      Uid="Border_38">
                      <Grid x:Name="Grid" Uid="Grid_49">
@@ -86,11 +88,15 @@
    <Window.Background>
       <SolidColorBrush
          Opacity="0.75"
-         Color="White"/>
+         Color="Gray"/>
    </Window.Background>
    <Window.ContextMenu>
       <ContextMenu
          Style="{DynamicResource ContextMenuTemplate}">
+         <MenuItem
+            Header="Close"
+            Click="OnClose"
+            Style="{DynamicResource ContextItemTemplate}"/>
          <MenuItem
             Header="Close"
             Click="OnClose"

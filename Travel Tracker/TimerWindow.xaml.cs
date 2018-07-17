@@ -17,8 +17,14 @@ namespace Travel_Tracker
       {
          InitializeComponent();
 
+#if DEBUG
+         LocationInput.City = "Paris";
+         LocationInput.Country = "France";
+#else
          LocationInput locationWindow = new LocationInput();
          locationWindow.ShowDialog();
+#endif
+
          location.Text = LocationInput.City + ", " + LocationInput.Country;
 
          StartTimeTracking();

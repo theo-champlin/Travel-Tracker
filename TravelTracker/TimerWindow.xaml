@@ -116,20 +116,20 @@
             <RowDefinition Height="1*"/>
          </Grid.RowDefinitions>
          <TextBlock
-            Name="location"
             FontSize="12"
             Foreground="{Binding ForegroundThemeColor}"
             Margin="2, 2, 0, 0"
             Grid.Row="0"
-            Grid.Column="0"/>
+            Grid.Column="0"
+            Text="{Binding Location}"/>
          <TextBlock
-            Name="dateText"
             FontSize="40"
             FontWeight="Bold"
             Foreground="{Binding ForegroundThemeColor}"
             Grid.Row="1"
             Grid.Column="0"
             HorizontalAlignment="Center"
+            Text="{Binding CurrentTime}"
             VerticalAlignment="Center"/>
       </Grid>
       <Canvas
@@ -138,7 +138,7 @@
          Grid.Column="1"
          Margin="5"
          MouseLeftButtonDown="OpenWeatherPage">
-         <ContentControl Name="WeatherIcon"/>
+         <ContentControl Content="{Binding WeatherIcon}"/>
       </Canvas>
    </Grid>
 </Window>

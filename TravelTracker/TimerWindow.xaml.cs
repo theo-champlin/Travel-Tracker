@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -8,20 +10,22 @@ namespace TravelTracker
 {
    using Interfaces;
    using Services;
-   using System.Windows.Input;
 
    /// <summary>
    /// Interaction logic for TimerWindow.xaml
    /// </summary>
-   public partial class TimerWindow : Window
+   public partial class TimerWindow : Window, INotifyPropertyChanged
    {
       public TimerWindow()
       {
          InitializeComponent();
-
-#if NDEBUG
-         LocationInput.City = "Poland";
-         LocationInput.Country = "Warsaw";
+         this.DataContext = this;
+#if DEBUG
+         LocationInput locationWindow = new LocationInput
+         {
+            City = "Poland",
+            Country = "Warsaw"
+         };
 #else
          LocationInput locationWindow = new LocationInput();
          locationWindow.ShowDialog();
@@ -39,8 +43,19 @@ namespace TravelTracker
             locationWindow.Country,
             locationWindow.City);
 
+         UpdateTheme(Colors.Black, Colors.Gray);
+
          MouseLeftButtonDown += delegate { DragMove(); };
       }
+
+      #region INotifiedProperty Block
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      protected void OnPropertyChanged(string propertyName)
+      {
+         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      }
+      #endregion
 
       private DispatcherTimer timer;
 
@@ -50,6 +65,40 @@ namespace TravelTracker
          = new LocationDetailsService(new LocationDetailsFetcher());
 
       private string weatherLocationTarget = string.Empty;
+
+      #region ViewModelProperty: BackgroundThemeColor
+      private Brush backgroundThemeColor;
+      public Brush BackgroundThemeColor
+      {
+         get
+         {
+            return backgroundThemeColor;
+         }
+
+         set
+         {
+            backgroundThemeColor = value;
+            OnPropertyChanged("BackgroundThemeColor");
+         }
+      }
+      #endregion
+
+      #region ViewModelProperty: ForegroundThemeColor
+      private Brush foregroundThemeColor;
+      public Brush ForegroundThemeColor
+      {
+         get
+         {
+            return foregroundThemeColor;
+         }
+
+         set
+         {
+            foregroundThemeColor = value;
+            OnPropertyChanged("ForegroundThemeColor");
+         }
+      }
+      #endregion
 
       private void StartTimeTracking(
          string country,
@@ -130,12 +179,8 @@ namespace TravelTracker
 
       private void UpdateTheme(Color foreground, Color background)
       {
-         var foregroundBrush = new SolidColorBrush(foreground);
-         BorderBrush = foregroundBrush;
-         location.Foreground = foregroundBrush;
-         dateText.Foreground = foregroundBrush;
-
-         Background = new SolidColorBrush(background) { Opacity = 0.75 };
+         ForegroundThemeColor = new SolidColorBrush(foreground);
+         BackgroundThemeColor = new SolidColorBrush(background) { Opacity = 0.75 };
       }
 
       private void OnClose(object sender, RoutedEventArgs e)

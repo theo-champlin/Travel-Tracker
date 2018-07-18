@@ -10,8 +10,9 @@
         Width="300"
         AllowsTransparency="True"
         WindowStyle="None"
+        Background="{Binding BackgroundThemeColor}"
         BorderThickness="5"
-        BorderBrush="Black">
+        BorderBrush="{Binding ForegroundThemeColor}">
    <Window.Resources>
       <Style x:Key="ContextMenuTemplate" TargetType="{x:Type ContextMenu}">
          <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -83,11 +84,6 @@
          </Style.Triggers>
       </Style>
    </Window.Resources>
-   <Window.Background>
-      <SolidColorBrush
-         Opacity="0.75"
-         Color="Gray"/>
-   </Window.Background>
    <Window.ContextMenu>
       <ContextMenu
          Style="{DynamicResource ContextMenuTemplate}">
@@ -122,6 +118,7 @@
          <TextBlock
             Name="location"
             FontSize="12"
+            Foreground="{Binding ForegroundThemeColor}"
             Margin="2, 2, 0, 0"
             Grid.Row="0"
             Grid.Column="0"/>
@@ -129,6 +126,7 @@
             Name="dateText"
             FontSize="40"
             FontWeight="Bold"
+            Foreground="{Binding ForegroundThemeColor}"
             Grid.Row="1"
             Grid.Column="0"
             HorizontalAlignment="Center"

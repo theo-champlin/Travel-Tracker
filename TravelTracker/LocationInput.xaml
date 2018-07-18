@@ -27,8 +27,8 @@
             Height="25"
             Name="CountrySelector"
             LostFocus="OnCountrySet"
-            Text="{Binding CountrySelectionText, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}"
-            behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TypeaheadCountryList, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+            Text="{Binding CountrySelectionText, UpdateSourceTrigger=PropertyChanged}"
+            behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TypeaheadCountryList}"
             behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="CurrentCultureIgnoreCase">
          </TextBox>
 
@@ -39,8 +39,8 @@
             Grid.Column="1"
             Height="25"
             Name="CitySelector"
-            Text="{Binding CitySelectionText, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}"
-            behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TypeaheadCityList, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+            Text="{Binding CitySelectionText, UpdateSourceTrigger=PropertyChanged}"
+            behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TypeaheadCityList}"
             behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="CurrentCultureIgnoreCase">
          </TextBox>
       </Grid>

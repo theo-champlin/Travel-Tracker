@@ -9,9 +9,9 @@ namespace TravelTracker
 
    public partial class LocationInput : Window
    {
-      public string Country { get; private set; }
+      public string Country { get; set; }
          = String.Empty;
-      public string City { get; private set; }
+      public string City { get; set; }
          = String.Empty;
       public string WikiPageId
       {
@@ -42,6 +42,7 @@ namespace TravelTracker
       public LocationInput()
       {
          InitializeComponent();
+         this.DataContext = this;
          locationSetter.PopulateCountryCollection(TypeaheadCountryList);
       }
 

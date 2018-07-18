@@ -44,6 +44,30 @@ namespace TravelTracker.Services
          }
       }
 
+      public string GetWikiPageId(string country, string city)
+      {
+         return AllCities
+            .Where(cityInfo => cityInfo.Name == city && cityInfo.Country == country)
+            .Select(cityInfo => cityInfo.WikiPageId)
+            .FirstOrDefault();
+      }
+
+      public string GetWeatherAreaCode(string country, string city)
+      {
+         return AllCities
+            .Where(cityInfo =>
+               String.Compare(
+                  cityInfo.Country,
+                  country,
+                  StringComparison.OrdinalIgnoreCase) == 0
+               && String.Compare(
+                  cityInfo.Name,
+                  city,
+                  StringComparison.OrdinalIgnoreCase) == 0)
+            .Select(cityInfo => cityInfo.WeatherAreaCode)
+            .FirstOrDefault();
+      }
+
       private List<CityInfo> AllCities;
    }
 }

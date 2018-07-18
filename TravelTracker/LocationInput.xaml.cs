@@ -9,8 +9,24 @@ namespace TravelTracker
 
    public partial class LocationInput : Window
    {
-      public static string Country = String.Empty;
-      public static string City = String.Empty;
+      public string Country { get; private set; }
+         = String.Empty;
+      public string City { get; private set; }
+         = String.Empty;
+      public string WikiPageId
+      {
+         get
+         {
+            return locationSetter.GetWikiPageId(Country, City);
+         }
+      }
+      public string WeatherAreaCode
+      {
+         get
+         {
+            return locationSetter.GetWeatherAreaCode(Country, City);
+         }
+      }
 
       public ObservableCollection<string> TypeaheadCountryList { get; set; }
          = new ObservableCollection<string> { };

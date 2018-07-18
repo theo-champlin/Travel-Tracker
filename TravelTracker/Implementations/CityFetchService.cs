@@ -8,6 +8,7 @@ namespace TravelTracker.Services
 {
    using Interfaces;
    using Models;
+   using System.Text;
 
    public class CityFetchService : ICityFetchService
    {

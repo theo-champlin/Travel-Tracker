@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace TravelTracker
 {
    using Interfaces;
    using Services;
+   using System.Windows.Input;
 
    /// <summary>
    /// Interaction logic for TimerWindow.xaml
@@ -17,21 +19,25 @@ namespace TravelTracker
       {
          InitializeComponent();
 
-#if DEBUG
-         LocationInput.City = "Paris";
-         LocationInput.Country = "France";
+#if NDEBUG
+         LocationInput.City = "Poland";
+         LocationInput.Country = "Warsaw";
 #else
          LocationInput locationWindow = new LocationInput();
          locationWindow.ShowDialog();
 #endif
+         location.Text = locationWindow.City + ", " + locationWindow.Country;
+         weatherLocationTarget = locationWindow.WeatherAreaCode;
 
-         location.Text = LocationInput.City + ", " + LocationInput.Country;
-
-         StartTimeTracking();
+         StartTimeTracking(
+            locationWindow.Country,
+            locationWindow.City);
 
          // This needs to happen after the time is set because the local time is used to decide
          // which weather icon to display.
-         SetWeatherIcon();
+         SetWeatherIcon(
+            locationWindow.Country,
+            locationWindow.City);
 
          MouseLeftButtonDown += delegate { DragMove(); };
       }
@@ -43,12 +49,16 @@ namespace TravelTracker
       private ILocationDetailsService locationDetails
          = new LocationDetailsService(new LocationDetailsFetcher());
 
-      private void StartTimeTracking()
+      private string weatherLocationTarget = string.Empty;
+
+      private void StartTimeTracking(
+         string country,
+         string city)
       {
          timerUtil = new TimerUtility(
             locationDetails,
-            LocationInput.Country,
-            LocationInput.City);
+            country,
+            city);
 
          SetTime();
 
@@ -72,11 +82,13 @@ namespace TravelTracker
          timer.Start();
       }
 
-      private void SetWeatherIcon()
+      private void SetWeatherIcon(
+         string country,
+         string city)
       {
          var weatherCode = locationDetails.GetLocalWeatherCode(
-           LocationInput.Country,
-           LocationInput.City);
+            country,
+            city);
 
          IResourceLookup weatherResourceLookup = new ResourceLookup();
          var iconResource = weatherResourceLookup.FindWeatherIcon(
@@ -89,6 +101,41 @@ namespace TravelTracker
          };
 
          WeatherIcon.SetBinding(ContentProperty, binding);
+      }
+
+      private void OpenWeatherPage(
+         object sender,
+         MouseButtonEventArgs e)
+      {
+         if (string.IsNullOrEmpty(weatherLocationTarget))
+         {
+            return;
+         }
+
+         System.Diagnostics.Process.Start(
+            "https://www.wunderground.com/q/zmw:" +
+            weatherLocationTarget);
+         e.Handled = true;
+      }
+
+      private void SetDarkTheme(object sender, RoutedEventArgs e)
+      {
+         UpdateTheme(Colors.Black, Colors.Gray);
+      }
+
+      private void SetLightTheme(object sender, RoutedEventArgs e)
+      {
+         UpdateTheme(Colors.DeepSkyBlue, Colors.White);
+      }
+
+      private void UpdateTheme(Color foreground, Color background)
+      {
+         var foregroundBrush = new SolidColorBrush(foreground);
+         BorderBrush = foregroundBrush;
+         location.Foreground = foregroundBrush;
+         dateText.Foreground = foregroundBrush;
+
+         Background = new SolidColorBrush(background) { Opacity = 0.75 };
       }
 
       private void OnClose(object sender, RoutedEventArgs e)

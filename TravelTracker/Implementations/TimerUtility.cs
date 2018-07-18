@@ -12,8 +12,8 @@ namespace TravelTracker.Services
          string city)
       {
          offset = locationDetails.GetTimezoneOffSet(
-            LocationInput.Country,
-            LocationInput.City);
+            country,
+            city);
       }
 
       public DateTime GetLocationTime(DateTime utcTime)

@@ -9,5 +9,11 @@ namespace TravelTracker.Models
 
       [JsonProperty("name")]
       public string Name = "";
+
+      [JsonProperty("wc")]
+      public string WeatherAreaCode = "";
+
+      [JsonProperty("pid")]
+      public string WikiPageId = "";
    }
 }

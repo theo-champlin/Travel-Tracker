@@ -22,5 +22,31 @@ namespace TravelTracker.Interfaces
       /// <param name="cities"></param>
       /// <exception cref="ArgumentNullException"></exception>
       void PopulateCityCollection(string country, ICollection<string> cities);
+
+      /// <summary>
+      /// Retrieves the Wikipedia page id for the city identified by the given city and country
+      /// names. The Wikipedia page id is an identifier used in the service URL to uniquely
+      /// identify the page for this location.
+      /// </summary>
+      /// <param name="country"></param>
+      /// <param name="city"></param>
+      /// <returns>
+      /// A string representing the page id for the given location or an empty string if the page
+      /// id can not be found.
+      /// </returns>
+      string GetWikiPageId(string country, string city);
+
+      /// <summary>
+      /// Retrieves the weather code for the city identified by the given city and country
+      /// names. The weather code is a string used by weather underground to direct to the local
+      /// weather for the given location.
+      /// </summary>
+      /// <param name="country"></param>
+      /// <param name="city"></param>
+      /// <returns>
+      /// A string representing the weather code for the given location or an empty string if the
+      /// weather code can not be found.
+      /// </returns>
+      string GetWeatherAreaCode(string country, string city);
    }
 }

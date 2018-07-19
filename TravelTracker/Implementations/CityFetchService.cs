@@ -4,7 +4,7 @@ using System.Linq;
 
 using Newtonsoft.Json;
 
-namespace TravelTracker.Services
+namespace TravelTracker.Implementations
 {
    using Interfaces;
    using Models;

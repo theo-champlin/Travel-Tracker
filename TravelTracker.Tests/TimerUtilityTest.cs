@@ -5,8 +5,8 @@ using NSubstitute;
 
 namespace TravelTracker.Tests
 {
+   using Implementations;
    using Interfaces;
-   using Services;
 
    [TestClass]
    public class TimerUtilityTest

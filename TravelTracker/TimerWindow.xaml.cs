@@ -8,8 +8,8 @@ using System.Windows.Threading;
 
 namespace TravelTracker
 {
+   using Implementations;
    using Interfaces;
-   using Services;
 
    /// <summary>
    /// Interaction logic for TimerWindow.xaml
@@ -86,6 +86,8 @@ namespace TravelTracker
          }
       }
 
+      public ICommand GetAdditionalInfo;
+
       public TimerWindow()
       {
          InitializeComponent();
@@ -102,6 +104,8 @@ namespace TravelTracker
 #endif
          Location = locationWindow.City + ", " + locationWindow.Country;
          weatherLocationTarget = locationWindow.WeatherAreaCode;
+
+         GetAdditionalInfo = new AdditionalInformationCommand(locationWindow.WikiPageId);
 
          StartTimeTracking(
             locationWindow.Country,

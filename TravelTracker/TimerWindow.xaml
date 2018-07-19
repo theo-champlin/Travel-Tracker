@@ -116,12 +116,17 @@
             <RowDefinition Height="1*"/>
          </Grid.RowDefinitions>
          <TextBlock
+            Background="Transparent"
             FontSize="12"
             Foreground="{Binding ForegroundThemeColor}"
             Margin="2, 2, 0, 0"
             Grid.Row="0"
             Grid.Column="0"
-            Text="{Binding Location}"/>
+            Text="{Binding Location}">
+            <TextBlock.InputBindings>
+               <MouseBinding Command="{Binding GetAdditionalInfo}" MouseAction="LeftClick"/>
+            </TextBlock.InputBindings>
+         </TextBlock>
          <TextBlock
             FontSize="40"
             FontWeight="Bold"

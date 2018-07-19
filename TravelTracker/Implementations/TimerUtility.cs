@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TravelTracker.Services
+namespace TravelTracker.Implementations
 {
    using Interfaces;
 

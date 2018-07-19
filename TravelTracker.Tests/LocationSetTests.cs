@@ -5,9 +5,9 @@ using NSubstitute;
 
 namespace TravelTracker.Tests
 {
+   using Implementations;
    using Interfaces;
    using Models;
-   using Services;
 
    [TestClass]
    public class LocationSetTests

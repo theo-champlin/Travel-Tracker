@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Implementations\AdditionalInformationCommand.cs" />
     <Compile Include="Interfaces\ICityFetchService.cs" />
     <Compile Include="Interfaces\ILocationDetailsFetcher.cs" />
     <Compile Include="Interfaces\ILocationDetailsService.cs" />
@@ -133,7 +134,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Content Include="Res\appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Res\CityLookup.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 
-namespace TravelTracker.Services
+namespace TravelTracker.Implementations
 {
    using Interfaces;
    using Models;

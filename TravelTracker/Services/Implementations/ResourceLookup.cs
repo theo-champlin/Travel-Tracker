@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TravelTracker.Implementations
+namespace TravelTracker.Services.Implementations
 {
    using Interfaces;
 

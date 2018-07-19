@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TravelTracker
+namespace TravelTracker.Views
 {
    using ViewModels;
 

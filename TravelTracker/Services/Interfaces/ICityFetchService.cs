@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TravelTracker.Interfaces
+namespace TravelTracker.Services.Interfaces
 {
    using Models;
 

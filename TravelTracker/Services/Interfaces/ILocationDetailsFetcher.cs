@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace TravelTracker.Interfaces
+namespace TravelTracker.Services.Interfaces
 {
    public interface ILocationDetailsFetcher
    {

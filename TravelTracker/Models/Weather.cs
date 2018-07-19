@@ -5,11 +5,18 @@ using System.Windows.Input;
 namespace TravelTracker.Models
 {
    using Commands;
-   using Implementations;
-   using Interfaces;
+   using Services.Implementations;
+   using Services.Interfaces;
 
+   /// <summary>
+   /// A representation of the weather in a given location. Weather will send a property changed
+   /// notification when any public property is updated to support binding.
+   /// </summary>
    public class Weather : INotifyPropertyChanged
    {
+      /// <summary>
+      /// A canvas object displaying a portrayal of the weather in the given location.
+      /// </summary>
       object _icon;
       public object Icon
       {
@@ -25,6 +32,10 @@ namespace TravelTracker.Models
          }
       }
 
+      /// <summary>
+      /// A command that launches a web page with weather information on the given location if the
+      /// page location is known.
+      /// </summary>
       NavigateToWeather _navigateToWeather;
       public NavigateToWeather NavigateToWeather
       {

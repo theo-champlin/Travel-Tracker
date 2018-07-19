@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TravelTracker.Implementations
+namespace TravelTracker.Services.Implementations
 {
    using Models;
    using Interfaces;

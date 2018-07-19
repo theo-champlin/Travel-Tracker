@@ -84,23 +84,22 @@
     <Compile Include="Commands\NavigateToWeather.cs" />
     <Compile Include="Commands\NavigateToWiki.cs" />
     <Compile Include="Commands\UpdateTheme.cs" />
-    <Compile Include="Implementations\AdditionalInformationCommand.cs" />
-    <Compile Include="Interfaces\ICityFetchService.cs" />
-    <Compile Include="Interfaces\ILocationDetailsFetcher.cs" />
-    <Compile Include="Interfaces\ILocationDetailsService.cs" />
-    <Compile Include="Interfaces\ILocationSetService.cs" />
-    <Compile Include="Interfaces\ITimerUtility.cs" />
-    <Compile Include="Interfaces\IResourceLookup.cs" />
+    <Compile Include="Services\Interfaces\ICityFetchService.cs" />
+    <Compile Include="Services\Interfaces\ILocationDetailsFetcher.cs" />
+    <Compile Include="Services\Interfaces\ILocationDetailsService.cs" />
+    <Compile Include="Services\Interfaces\ILocationSetService.cs" />
+    <Compile Include="Services\Interfaces\ITimerUtility.cs" />
+    <Compile Include="Services\Interfaces\IResourceLookup.cs" />
     <Compile Include="Models\CityInfo.cs" />
-    <Compile Include="Implementations\CityFetchService.cs" />
-    <Compile Include="Implementations\LocationDetailsFetcher.cs" />
-    <Compile Include="Implementations\LocationDetailsService.cs" />
-    <Compile Include="Implementations\LocationSetService.cs" />
+    <Compile Include="Services\Implementations\CityFetchService.cs" />
+    <Compile Include="Services\Implementations\LocationDetailsFetcher.cs" />
+    <Compile Include="Services\Implementations\LocationDetailsService.cs" />
+    <Compile Include="Services\Implementations\LocationSetService.cs" />
     <Compile Include="LocationInput.xaml.cs">
       <DependentUpon>LocationInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\TravelTrackingViewModel.cs" />
-    <Page Include="TimerWindow.xaml">
+    <Page Include="Views\TimerWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -110,12 +109,12 @@
     </Compile>
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Settings.cs" />
-    <Compile Include="Implementations\ResourceLookup.cs" />
-    <Compile Include="Implementations\TimerUtility.cs" />
+    <Compile Include="Services\Implementations\ResourceLookup.cs" />
+    <Compile Include="Services\Implementations\TimerUtility.cs" />
     <Compile Include="Models\Theme.cs" />
     <Compile Include="Models\Timer.cs" />
     <Compile Include="Models\Weather.cs" />
-    <Compile Include="TimerWindow.xaml.cs">
+    <Compile Include="Views\TimerWindow.xaml.cs">
       <DependentUpon>TimerWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

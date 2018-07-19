@@ -4,8 +4,8 @@ using System.Windows.Input;
 namespace TravelTracker.ViewModels
 {
    using Commands;
-   using Implementations;
-   using Interfaces;
+   using Services.Implementations;
+   using Services.Interfaces;
    using Models;
 
    public class TravelTrackingViewModel

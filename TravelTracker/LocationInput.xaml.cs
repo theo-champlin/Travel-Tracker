@@ -4,8 +4,8 @@ using System.Windows;
 
 namespace TravelTracker
 {
-   using Implementations;
-   using Interfaces;
+   using Services.Implementations;
+   using Services.Interfaces;
 
    public partial class LocationInput : Window
    {

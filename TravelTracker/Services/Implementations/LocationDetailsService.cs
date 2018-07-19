@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace TravelTracker.Implementations
+namespace TravelTracker.Services.Implementations
 {
    using Interfaces;
 

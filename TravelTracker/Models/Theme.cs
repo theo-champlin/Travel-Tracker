@@ -5,6 +5,9 @@ namespace TravelTracker.Models
 {
    using Commands;
 
+   /// <summary>
+   /// A class representing the current color scheme of the application.
+   /// </summary>
    public class Theme : INotifyPropertyChanged
    {
       private Brush _foreground;
@@ -37,6 +40,9 @@ namespace TravelTracker.Models
          }
       }
 
+      /// <summary>
+      /// A command telling the theme to update to a lighter, blue color scheme.
+      /// </summary>
       private UpdateTheme _setBlueTheme;
       public UpdateTheme SetBlueTheme
       {
@@ -52,6 +58,9 @@ namespace TravelTracker.Models
          }
       }
 
+      /// <summary>
+      /// A command telling the theme to update to a darker color scheme.
+      /// </summary>
       private UpdateTheme _setDarkTheme;
       public UpdateTheme SetDarkTheme
       {

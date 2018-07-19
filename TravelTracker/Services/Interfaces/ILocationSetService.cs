@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TravelTracker.Interfaces
+namespace TravelTracker.Services.Interfaces
 {
    public interface ILocationSetService
    {

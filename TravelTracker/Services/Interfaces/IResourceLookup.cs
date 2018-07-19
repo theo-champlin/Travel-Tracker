@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TravelTracker.Interfaces
+namespace TravelTracker.Services.Interfaces
 {
    public interface IResourceLookup
    {

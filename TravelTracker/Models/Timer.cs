@@ -4,10 +4,18 @@ using System.Windows.Threading;
 
 namespace TravelTracker.Models
 {
-   using Interfaces;
+   using Services.Interfaces;
 
+   /// <summary>
+   /// A class managing and making available the current time in a location specified by the user.
+   /// Timer will send a property changed notification when any public property is updated to
+   /// support binding.
+   /// </summary>
    public class Timer : INotifyPropertyChanged
    {
+      /// <summary>
+      /// A string of format "h:mm tt" representing the local time.
+      /// </summary>
       private string _time;
       public string FormattedTime
       {

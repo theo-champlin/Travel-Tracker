@@ -4,11 +4,10 @@ using System.Linq;
 
 using Newtonsoft.Json;
 
-namespace TravelTracker.Implementations
+namespace TravelTracker.Services.Implementations
 {
    using Interfaces;
    using Models;
-   using System.Text;
 
    public class CityFetchService : ICityFetchService
    {

@@ -106,6 +106,9 @@
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Implementations\ResourceLookup.cs" />
     <Compile Include="Implementations\TimerUtility.cs" />
+    <Compile Include="Models\Theme.cs" />
+    <Compile Include="Models\Timer.cs" />
+    <Compile Include="Models\Weather.cs" />
     <Compile Include="TimerWindow.xaml.cs">
       <DependentUpon>TimerWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

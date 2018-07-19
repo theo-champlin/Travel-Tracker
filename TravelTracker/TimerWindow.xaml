@@ -10,9 +10,9 @@
         Width="300"
         AllowsTransparency="True"
         WindowStyle="None"
-        Background="{Binding BackgroundThemeColor}"
+        Background="{Binding Theme.Background}"
         BorderThickness="5"
-        BorderBrush="{Binding ForegroundThemeColor}">
+        BorderBrush="{Binding Theme.Foreground}">
    <Window.Resources>
       <Style x:Key="ContextMenuTemplate" TargetType="{x:Type ContextMenu}">
          <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -117,24 +117,27 @@
          </Grid.RowDefinitions>
          <TextBlock
             Background="Transparent"
-            FontSize="12"
-            Foreground="{Binding ForegroundThemeColor}"
             Margin="2, 2, 0, 0"
             Grid.Row="0"
-            Grid.Column="0"
-            Text="{Binding Location}">
-            <TextBlock.InputBindings>
-               <MouseBinding Command="{Binding GetAdditionalInfo}" MouseAction="LeftClick"/>
-            </TextBlock.InputBindings>
+            Grid.Column="0">
+            <Hyperlink
+               Command=""
+               CommandParameter="{Binding}"
+               TextDecorations="None">
+               <TextBlock
+                  FontSize="12"
+                  Foreground="{Binding Theme.Foreground}"
+                  Text="{Binding Location}"/>
+            </Hyperlink>
          </TextBlock>
          <TextBlock
             FontSize="40"
             FontWeight="Bold"
-            Foreground="{Binding ForegroundThemeColor}"
+            Foreground="{Binding Theme.Foreground}"
             Grid.Row="1"
             Grid.Column="0"
             HorizontalAlignment="Center"
-            Text="{Binding CurrentTime}"
+            Text="{Binding Timer.FormattedTime}"
             VerticalAlignment="Center"/>
       </Grid>
       <Canvas
@@ -143,7 +146,7 @@
          Grid.Column="1"
          Margin="5"
          MouseLeftButtonDown="OpenWeatherPage">
-         <ContentControl Content="{Binding WeatherIcon}"/>
+         <ContentControl Content="{Binding Weather.Icon}"/>
       </Canvas>
    </Grid>
 </Window>

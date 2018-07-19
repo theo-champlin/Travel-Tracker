@@ -1,60 +1,44 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
 
 namespace TravelTracker
 {
    using Implementations;
    using Interfaces;
+   using Models;
 
    /// <summary>
    /// Interaction logic for TimerWindow.xaml
    /// </summary>
    public partial class TimerWindow : Window, INotifyPropertyChanged
    {
-      public Brush BackgroundThemeColor
+      private Theme _theme;
+      public Theme Theme
       {
          get
          {
-            return backgroundThemeColor;
-         }
-
-         set
-         {
-            backgroundThemeColor = value;
-            OnPropertyChanged("BackgroundThemeColor");
+            return _theme;
          }
       }
 
-      public Brush ForegroundThemeColor
+      private Timer _timer;
+      public Timer Timer
       {
          get
          {
-            return foregroundThemeColor;
-         }
-
-         set
-         {
-            foregroundThemeColor = value;
-            OnPropertyChanged("ForegroundThemeColor");
+            return _timer;
          }
       }
 
-      public string CurrentTime
+      private Weather _weather;
+      public Weather Weather
       {
          get
          {
-            return time;
-         }
-
-         set
-         {
-            time = value;
-            OnPropertyChanged("CurrentTime");
+            return _weather;
          }
       }
 
@@ -72,17 +56,17 @@ namespace TravelTracker
          }
       }
 
-      public object WeatherIcon
+      public string InfoUrl
       {
          get
          {
-            return weather;
+            return infoUrl;
          }
 
          set
          {
-            weather = value;
-            OnPropertyChanged("WeatherIcon");
+            infoUrl = "https://en.wikipedia.org/wiki/?curid=" + value;
+            OnPropertyChanged("InfoUrl");
          }
       }
 
@@ -104,8 +88,7 @@ namespace TravelTracker
 #endif
          Location = locationWindow.City + ", " + locationWindow.Country;
          weatherLocationTarget = locationWindow.WeatherAreaCode;
-
-         GetAdditionalInfo = new AdditionalInformationCommand(locationWindow.WikiPageId);
+         InfoUrl = locationWindow.WikiPageId;
 
          StartTimeTracking(
             locationWindow.Country,
@@ -117,7 +100,7 @@ namespace TravelTracker
             locationWindow.Country,
             locationWindow.City);
 
-         UpdateTheme(Colors.Black, Colors.Gray);
+         _theme = new Theme(Colors.Black, Colors.Gray);
 
          MouseLeftButtonDown += delegate { DragMove(); };
       }
@@ -131,8 +114,6 @@ namespace TravelTracker
       }
       #endregion
 
-      private DispatcherTimer timer;
-
       private ITimerUtility timerUtil;
 
       private ILocationDetailsService locationDetails
@@ -140,13 +121,8 @@ namespace TravelTracker
 
       private string weatherLocationTarget = string.Empty;
 
-      private Brush backgroundThemeColor;
-      private Brush foregroundThemeColor;
-
-      private string time;
       private string location;
-
-      private object weather;
+      private string infoUrl;
 
       private void StartTimeTracking(
          string country,
@@ -157,35 +133,18 @@ namespace TravelTracker
             country,
             city);
 
-         CurrentTime = timerUtil.GetFormattedLocationTime(DateTime.UtcNow);
-
-         timer = new DispatcherTimer(
-            timerUtil.GetMinuteUpdateInterval(DateTime.Now),
-            DispatcherPriority.Normal,
-            delegate { TimerElapsed(); },
-            Dispatcher);
-      }
-
-      private void TimerElapsed()
-      {
-         CurrentTime = timerUtil.GetFormattedLocationTime(DateTime.UtcNow);
-
-         timer.Interval = timerUtil.GetMinuteUpdateInterval(DateTime.Now);
-         timer.Start();
+         _timer = new Timer(timerUtil);
       }
 
       private void SetWeatherIcon(
          string country,
          string city)
       {
-         var weatherCode = locationDetails.GetLocalWeatherCode(
+         _weather = new Weather(
             country,
-            city);
-
-         IResourceLookup weatherResourceLookup = new ResourceLookup();
-         WeatherIcon = weatherResourceLookup.FindWeatherIcon(
-            weatherCode,
-            timerUtil.GetLocationTime(DateTime.UtcNow));
+            city,
+            timerUtil.GetLocationTime(DateTime.UtcNow),
+            locationDetails);
       }
 
       private void OpenWeatherPage(
@@ -206,18 +165,12 @@ namespace TravelTracker
 
       private void SetDarkTheme(object sender, RoutedEventArgs e)
       {
-         UpdateTheme(Colors.Black, Colors.Gray);
+         _theme.SetTheme(Colors.Black, Colors.Gray);
       }
 
       private void SetLightTheme(object sender, RoutedEventArgs e)
       {
-         UpdateTheme(Colors.DeepSkyBlue, Colors.White);
-      }
-
-      private void UpdateTheme(Color foreground, Color background)
-      {
-         ForegroundThemeColor = new SolidColorBrush(foreground);
-         BackgroundThemeColor = new SolidColorBrush(background) { Opacity = 0.75 };
+         _theme.SetTheme(Colors.DeepSkyBlue, Colors.White);
       }
 
       private void OnClose(object sender, RoutedEventArgs e)

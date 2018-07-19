@@ -3,6 +3,8 @@ using System.Windows.Media;
 
 namespace TravelTracker.Models
 {
+   using Commands;
+
    public class Theme : INotifyPropertyChanged
    {
       private Brush _foreground;
@@ -35,9 +37,47 @@ namespace TravelTracker.Models
          }
       }
 
-      public Theme(Color foreground, Color background)
+      private UpdateTheme _setBlueTheme;
+      public UpdateTheme SetBlueTheme
       {
-         SetTheme(foreground, background);
+         get
+         {
+            return _setBlueTheme;
+         }
+
+         private set
+         {
+            _setBlueTheme = value;
+            OnPropertyChanged("SetBlueTheme");
+         }
+      }
+
+      private UpdateTheme _setDarkTheme;
+      public UpdateTheme SetDarkTheme
+      {
+         get
+         {
+            return _setDarkTheme;
+         }
+
+         private set
+         {
+            _setDarkTheme = value;
+            OnPropertyChanged("SetDarkTheme");
+         }
+      }
+
+      public Theme()
+      {
+         SetBlueTheme = new UpdateTheme(
+            this,
+            Colors.DeepSkyBlue,
+            Colors.White);
+
+         SetDarkTheme = new UpdateTheme(
+            this,
+            Colors.Black,
+            Colors.Gray);
       }
 
       public void SetTheme(Color foreground, Color background)

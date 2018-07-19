@@ -88,17 +88,17 @@
       <ContextMenu
          Style="{DynamicResource ContextMenuTemplate}">
          <MenuItem
+            Command="{Binding ExitApplication}"
             Header="Close"
-            Click="OnClose"
             Style="{DynamicResource ContextItemTemplate}"/>
          <Separator Foreground="LightGray"/>
          <MenuItem
+            Command="{Binding Theme.SetBlueTheme}"
             Header="Blue"
-            Click="SetLightTheme"
             Style="{DynamicResource ContextItemTemplate}"/>
          <MenuItem
+            Command="{Binding Theme.SetDarkTheme}"
             Header="Dark"
-            Click="SetDarkTheme"
             Style="{DynamicResource ContextItemTemplate}"/>
       </ContextMenu>
    </Window.ContextMenu>
@@ -121,13 +121,12 @@
             Grid.Row="0"
             Grid.Column="0">
             <Hyperlink
-               Command=""
-               CommandParameter="{Binding}"
+               Command="{Binding NavigateToWiki}"
                TextDecorations="None">
                <TextBlock
                   FontSize="12"
                   Foreground="{Binding Theme.Foreground}"
-                  Text="{Binding Location}"/>
+                  Text="{Binding Location.FullName}"/>
             </Hyperlink>
          </TextBlock>
          <TextBlock
@@ -144,8 +143,12 @@
          Background="Transparent"
          Grid.Row="0"
          Grid.Column="1"
-         Margin="5"
-         MouseLeftButtonDown="OpenWeatherPage">
+         Margin="5">
+         <Canvas.InputBindings>
+            <MouseBinding
+               Gesture="LeftClick"
+               Command="{Binding Weather.NavigateToWeather}"/>
+         </Canvas.InputBindings>
          <ContentControl Content="{Binding Weather.Icon}"/>
       </Canvas>
    </Grid>

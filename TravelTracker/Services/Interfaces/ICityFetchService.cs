@@ -2,7 +2,7 @@
 
 namespace TravelTracker.Services.Interfaces
 {
-   using Models;
+   using Serializations;
 
    public interface ICityFetchService
    {

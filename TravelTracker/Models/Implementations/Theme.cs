@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel;
+using System.Windows.Input;
 using System.Windows.Media;
 
-namespace TravelTracker.Models
+namespace TravelTracker.Models.Implementations
 {
    using Commands;
+   using Interfaces;
 
-   /// <summary>
-   /// A class representing the current color scheme of the application.
-   /// </summary>
-   public class Theme : INotifyPropertyChanged
+   public class Theme : ITheme
    {
       private Brush _foreground;
       public Brush Foreground
@@ -40,11 +39,8 @@ namespace TravelTracker.Models
          }
       }
 
-      /// <summary>
-      /// A command telling the theme to update to a lighter, blue color scheme.
-      /// </summary>
       private UpdateTheme _setBlueTheme;
-      public UpdateTheme SetBlueTheme
+      public ICommand SetBlueTheme
       {
          get
          {
@@ -53,16 +49,13 @@ namespace TravelTracker.Models
 
          private set
          {
-            _setBlueTheme = value;
+            _setBlueTheme = value as UpdateTheme;
             OnPropertyChanged("SetBlueTheme");
          }
       }
 
-      /// <summary>
-      /// A command telling the theme to update to a darker color scheme.
-      /// </summary>
       private UpdateTheme _setDarkTheme;
-      public UpdateTheme SetDarkTheme
+      public ICommand SetDarkTheme
       {
          get
          {
@@ -71,7 +64,7 @@ namespace TravelTracker.Models
 
          private set
          {
-            _setDarkTheme = value;
+            _setDarkTheme = value as UpdateTheme;
             OnPropertyChanged("SetDarkTheme");
          }
       }

@@ -84,13 +84,18 @@
     <Compile Include="Commands\NavigateToWeather.cs" />
     <Compile Include="Commands\NavigateToWiki.cs" />
     <Compile Include="Commands\UpdateTheme.cs" />
+    <Compile Include="Models\Interfaces\ILocation.cs" />
+    <Compile Include="Models\Interfaces\ISettings.cs" />
+    <Compile Include="Models\Interfaces\ITheme.cs" />
+    <Compile Include="Models\Interfaces\ITimer.cs" />
+    <Compile Include="Models\Interfaces\IWeather.cs" />
     <Compile Include="Services\Interfaces\ICityFetchService.cs" />
     <Compile Include="Services\Interfaces\ILocationDetailsFetcher.cs" />
     <Compile Include="Services\Interfaces\ILocationDetailsService.cs" />
     <Compile Include="Services\Interfaces\ILocationSetService.cs" />
     <Compile Include="Services\Interfaces\ITimerUtility.cs" />
     <Compile Include="Services\Interfaces\IResourceLookup.cs" />
-    <Compile Include="Models\CityInfo.cs" />
+    <Compile Include="Serializations\CityInfo.cs" />
     <Compile Include="Services\Implementations\CityFetchService.cs" />
     <Compile Include="Services\Implementations\LocationDetailsFetcher.cs" />
     <Compile Include="Services\Implementations\LocationDetailsService.cs" />
@@ -107,13 +112,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\Implementations\Location.cs" />
+    <Compile Include="Models\Implementations\Settings.cs" />
     <Compile Include="Services\Implementations\ResourceLookup.cs" />
     <Compile Include="Services\Implementations\TimerUtility.cs" />
-    <Compile Include="Models\Theme.cs" />
-    <Compile Include="Models\Timer.cs" />
-    <Compile Include="Models\Weather.cs" />
+    <Compile Include="Models\Implementations\Theme.cs" />
+    <Compile Include="Models\Implementations\Timer.cs" />
+    <Compile Include="Models\Implementations\Weather.cs" />
     <Compile Include="Views\TimerWindow.xaml.cs">
       <DependentUpon>TimerWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

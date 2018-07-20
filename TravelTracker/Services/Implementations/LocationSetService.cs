@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace TravelTracker.Services.Implementations
 {
-   using Models;
    using Interfaces;
+   using Serializations;
 
    public class LocationSetService : ILocationSetService
    {

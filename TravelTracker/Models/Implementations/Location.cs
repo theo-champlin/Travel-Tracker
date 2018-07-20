@@ -1,18 +1,11 @@
 ﻿using System.ComponentModel;
 
-namespace TravelTracker.Models
+namespace TravelTracker.Models.Implementations
 {
-   /// <summary>
-   /// A class managing and providing the locally maintained location information of the place
-   /// for which the user has targeted. Location will send a property changed notification when any
-   /// public property is updated to support binding.
-   /// </summary>
-   public class Location : INotifyPropertyChanged
+   using Interfaces;
+
+   public class Location : ILocation
    {
-      /// <summary>
-      /// A formatted string representation of the target location. The name will be of the style
-      /// "{City}, {Country}" eg. "Paris, France".
-      /// </summary>
       public string FullName
       {
          get
@@ -21,9 +14,6 @@ namespace TravelTracker.Models
          }
       }
 
-      /// <summary>
-      /// The name of the current country the user has selected.
-      /// </summary>
       private string _country;
       public string Country
       {
@@ -40,9 +30,6 @@ namespace TravelTracker.Models
          }
       }
 
-      /// <summary>
-      /// The name of the current city the user has selected.
-      /// </summary>
       private string _city;
       public string City
       {
@@ -59,10 +46,6 @@ namespace TravelTracker.Models
          }
       }
 
-      /// <summary>
-      /// The page id that Wikipedia uses to uniquely identify the page corresponding to the
-      /// location chosen by the user, if we have one on record.
-      /// </summary>
       private string _wikiPageId;
       public string WikiPageId
       {
@@ -78,10 +61,6 @@ namespace TravelTracker.Models
          }
       }
 
-      /// <summary>
-      /// The area id that Weather Underground uses to uniquely identify the page corresponding to
-      /// the location chosen by the user, if we have one on record.
-      /// </summary>
       private string _weatherAreaCode;
       public string WeatherAreaCode
       {

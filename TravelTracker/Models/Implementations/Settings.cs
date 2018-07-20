@@ -2,11 +2,13 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace TravelTracker.Models
+namespace TravelTracker.Models.Implementations
 {
-   internal class Settings
+   using Interfaces;
+
+   internal class Settings : ISettings
    {
-      public static Settings AppSettings { get { return ControllerInstance.Value; } }
+      public static ISettings AppSettings { get { return ControllerInstance.Value; } }
       public string CityLookupLocation { get; set; }
       public string LocationDetailsServiceKey { get; set; }
 

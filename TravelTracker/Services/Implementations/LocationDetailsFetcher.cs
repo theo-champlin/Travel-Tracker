@@ -4,7 +4,7 @@ using System.Net;
 namespace TravelTracker.Services.Implementations
 {
    using Interfaces;
-   using Models;
+   using Models.Implementations;
 
    public class LocationDetailsFetcher : ILocationDetailsFetcher
    {

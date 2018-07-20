@@ -4,14 +4,15 @@ using System.Windows.Input;
 namespace TravelTracker.ViewModels
 {
    using Commands;
+   using Models.Implementations;
+   using Models.Interfaces;
    using Services.Implementations;
    using Services.Interfaces;
-   using Models;
 
    public class TravelTrackingViewModel
    {
-      private Location _location;
-      public Location Location
+      private ILocation _location;
+      public ILocation Location
       {
          get
          {
@@ -19,8 +20,8 @@ namespace TravelTracker.ViewModels
          }
       }
 
-      private Theme _theme;
-      public Theme Theme
+      private ITheme _theme;
+      public ITheme Theme
       {
          get
          {
@@ -28,8 +29,8 @@ namespace TravelTracker.ViewModels
          }
       }
 
-      private Timer _timer;
-      public Timer Timer
+      private ITimer _timer;
+      public ITimer Timer
       {
          get
          {
@@ -37,8 +38,8 @@ namespace TravelTracker.ViewModels
          }
       }
 
-      private Weather _weather;
-      public Weather Weather
+      private IWeather _weather;
+      public IWeather Weather
       {
          get
          {

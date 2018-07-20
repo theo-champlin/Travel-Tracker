@@ -7,7 +7,8 @@ using Newtonsoft.Json;
 namespace TravelTracker.Services.Implementations
 {
    using Interfaces;
-   using Models;
+   using Models.Implementations;
+   using Serializations;
 
    public class CityFetchService : ICityFetchService
    {

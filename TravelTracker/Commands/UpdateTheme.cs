@@ -4,12 +4,12 @@ using System.Windows.Media;
 
 namespace TravelTracker.Commands
 {
-   using Models;
+   using Models.Interfaces;
 
    public class UpdateTheme : ICommand
    {
       public UpdateTheme(
-         Theme currentDisplay,
+         ITheme currentDisplay,
          Color foreground,
          Color background)
       {
@@ -42,7 +42,7 @@ namespace TravelTracker.Commands
             background);
       }
 
-      private Theme currentDisplay;
+      private ITheme currentDisplay;
       private Color foreground;
       private Color background;
    }

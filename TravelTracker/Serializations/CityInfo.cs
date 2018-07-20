@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace TravelTracker.Models
+namespace TravelTracker.Serializations
 {
    public class CityInfo
    {

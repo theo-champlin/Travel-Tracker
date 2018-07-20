@@ -3,6 +3,8 @@
 namespace TravelTracker.Models.Implementations
 {
    using Interfaces;
+   using Views;
+   using ViewModels;
 
    public class Location : ILocation
    {
@@ -78,22 +80,23 @@ namespace TravelTracker.Models.Implementations
 
       public Location()
       {
-#if DEBUG
+#if NDEBUG
          LocationInput locationWindow = new LocationInput
          {
             City = "Paris",
             Country = "France"
          };
 #else
-         LocationInput locationWindow = new LocationInput();
+         var locationWindowControl = new LocationInputViewModel();
+         var locationWindow = new LocationInput(locationWindowControl);
          locationWindow.ShowDialog();
 #endif
 
-         Country = locationWindow.Country;
-         City = locationWindow.City;
+         Country = locationWindowControl.Country;
+         City = locationWindowControl.City;
 
-         WikiPageId = locationWindow.WikiPageId;
-         WeatherAreaCode = locationWindow.WeatherAreaCode;
+         WikiPageId = locationWindowControl.WikiPageId;
+         WeatherAreaCode = locationWindowControl.WeatherAreaCode;
       }
 
       #region INotifyPropertyChanged

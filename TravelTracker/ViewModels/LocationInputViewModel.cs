@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Windows;
+using System.Windows.Input;
 
-namespace TravelTracker
+namespace TravelTracker.ViewModels
 {
+   using Commands;
    using Services.Implementations;
    using Services.Interfaces;
 
-   public partial class LocationInput : Window
+   public class LocationInputViewModel
    {
       public string Country { get; set; }
          = String.Empty;
+
       public string City { get; set; }
          = String.Empty;
+
       public string WikiPageId
       {
          get
@@ -28,36 +31,55 @@ namespace TravelTracker
          }
       }
 
+      private SetLocation _setLocation;
+      public ICommand SetLocation
+      {
+         get
+         {
+            return _setLocation;
+         }
+      }
+
       public ObservableCollection<string> TypeaheadCountryList { get; set; }
          = new ObservableCollection<string> { };
 
       public ObservableCollection<string> TypeaheadCityList { get; set; }
          = new ObservableCollection<string> { };
 
-      public string CountrySelectionText { get; set; }
-         = String.Empty;
+      private string _countrySelectionText;
+      public string CountrySelectionText
+      {
+         get
+         {
+            return _countrySelectionText;
+         }
+         set
+         {
+            _countrySelectionText = value;
+            OnCountrySet();
+         }
+      }
+
       public string CitySelectionText { get; set; }
          = String.Empty;
 
-      public LocationInput()
+      public LocationInputViewModel()
       {
-         InitializeComponent();
-         this.DataContext = this;
          locationSetter.PopulateCountryCollection(TypeaheadCountryList);
+         _setLocation = new SetLocation(this);
       }
 
-      private ILocationSetService locationSetter = new LocationSetService(new CityFetchService());
+      public void FinalizeLocation()
+      {
+         City = CitySelectionText;
+      }
 
-      private void OnCountrySet(object sender, RoutedEventArgs e)
+      public void OnCountrySet()
       {
          Country = CountrySelectionText;
          locationSetter.PopulateCityCollection(Country, TypeaheadCityList);
       }
 
-      private void SetLocationClick(object sender, RoutedEventArgs e)
-      {
-         City = CitySelectionText;
-         Close();
-      }
+      private ILocationSetService locationSetter = new LocationSetService(new CityFetchService());
    }
 }

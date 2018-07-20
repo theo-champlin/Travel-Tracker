@@ -1,4 +1,4 @@
-﻿<Window x:Class="TravelTracker.LocationInput"
+﻿<Window x:Class="TravelTracker.Views.LocationInput"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,13 @@
         xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
         xmlns:local="clr-namespace:TravelTracker"
         mc:Ignorable="d"
-        Title="Enter a Location" Height="130" Width="425">
+        Title="Enter a Location"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        BorderBrush="Black"
+        BorderThickness="5"
+        Height="100"
+        Width="425">
 
    <StackPanel>
       <Grid>
@@ -26,8 +32,7 @@
             Grid.Column="0"
             Height="25"
             Name="CountrySelector"
-            LostFocus="OnCountrySet"
-            Text="{Binding CountrySelectionText, UpdateSourceTrigger=PropertyChanged}"
+            Text="{Binding CountrySelectionText, UpdateSourceTrigger=LostFocus}"
             behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TypeaheadCountryList}"
             behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="CurrentCultureIgnoreCase">
          </TextBox>
@@ -45,6 +50,14 @@
          </TextBox>
       </Grid>
 
-      <Button Margin="5" Width="100" Height="25" Click="SetLocationClick">Set Time</Button>
+      <Button
+         Margin="5"
+         Width="100"
+         Height="25"
+         Command="{Binding SetLocation}"
+         CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                           AncestorType={x:Type Window}}}">
+         Set Time
+      </Button>
    </StackPanel>
 </Window>

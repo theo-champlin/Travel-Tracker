@@ -83,6 +83,7 @@
     <Compile Include="Commands\ExitApplication.cs" />
     <Compile Include="Commands\NavigateToWeather.cs" />
     <Compile Include="Commands\NavigateToWiki.cs" />
+    <Compile Include="Commands\SetLocation.cs" />
     <Compile Include="Commands\UpdateTheme.cs" />
     <Compile Include="Models\Interfaces\ILocation.cs" />
     <Compile Include="Models\Interfaces\ISettings.cs" />
@@ -100,9 +101,10 @@
     <Compile Include="Services\Implementations\LocationDetailsFetcher.cs" />
     <Compile Include="Services\Implementations\LocationDetailsService.cs" />
     <Compile Include="Services\Implementations\LocationSetService.cs" />
-    <Compile Include="LocationInput.xaml.cs">
+    <Compile Include="Views\LocationInput.xaml.cs">
       <DependentUpon>LocationInput.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\LocationInputViewModel.cs" />
     <Compile Include="ViewModels\TravelTrackingViewModel.cs" />
     <Page Include="Views\TimerWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -123,7 +125,7 @@
       <DependentUpon>TimerWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="LocationInput.xaml">
+    <Page Include="Views\LocationInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -72,7 +72,13 @@ namespace TravelTracker.ViewModels
 
       public TravelTrackingViewModel()
       {
-         _location = new Location();
+         InitializeTheme();
+
+         _location = new Location(Theme);
+         if (string.IsNullOrEmpty(Location.City))
+         {
+            return;
+         }
          _navigateToWiki = new NavigateToWiki(Location.WikiPageId);
 
          StartTimeTracking(
@@ -85,8 +91,6 @@ namespace TravelTracker.ViewModels
             Location.Country,
             Location.City,
             Location.WeatherAreaCode);
-
-         InitializeTheme();
       }
 
       private ITimerUtility timerUtil;
@@ -122,7 +126,7 @@ namespace TravelTracker.ViewModels
       private void InitializeTheme()
       {
          _theme = new Theme();
-         _theme.SetDarkTheme.Execute(null);
+         _theme.SetBlueTheme.Execute(null);
       }
    }
 }

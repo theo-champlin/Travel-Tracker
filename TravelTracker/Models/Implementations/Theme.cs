@@ -39,6 +39,21 @@ namespace TravelTracker.Models.Implementations
          }
       }
 
+      private Brush _solidBackground;
+      public Brush SolidBackground
+      {
+         get
+         {
+            return _solidBackground;
+         }
+
+         private set
+         {
+            _solidBackground = value;
+            OnPropertyChanged("Background");
+         }
+      }
+
       private UpdateTheme _setBlueTheme;
       public ICommand SetBlueTheme
       {
@@ -86,6 +101,7 @@ namespace TravelTracker.Models.Implementations
       {
          Foreground = new SolidColorBrush(foreground);
          Background = new SolidColorBrush(background) { Opacity = 0.75 };
+         SolidBackground = new SolidColorBrush(background);
       }
 
       #region INotifyPropertyChanged

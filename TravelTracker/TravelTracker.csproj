@@ -83,13 +83,16 @@
     <Compile Include="Commands\ExitApplication.cs" />
     <Compile Include="Commands\NavigateToWeather.cs" />
     <Compile Include="Commands\NavigateToWiki.cs" />
-    <Compile Include="Commands\SetLocation.cs" />
+    <Compile Include="Commands\CloseWindow.cs" />
+    <Compile Include="Commands\SetExitMode.cs" />
     <Compile Include="Commands\UpdateTheme.cs" />
     <Compile Include="Models\Interfaces\ILocation.cs" />
+    <Compile Include="Models\Interfaces\ILocationInputFields.cs" />
     <Compile Include="Models\Interfaces\ISettings.cs" />
     <Compile Include="Models\Interfaces\ITheme.cs" />
     <Compile Include="Models\Interfaces\ITimer.cs" />
     <Compile Include="Models\Interfaces\IWeather.cs" />
+    <Compile Include="Models\Implementations\LocationInputFields.cs" />
     <Compile Include="Services\Interfaces\ICityFetchService.cs" />
     <Compile Include="Services\Interfaces\ILocationDetailsFetcher.cs" />
     <Compile Include="Services\Interfaces\ILocationDetailsService.cs" />
@@ -101,11 +104,19 @@
     <Compile Include="Services\Implementations\LocationDetailsFetcher.cs" />
     <Compile Include="Services\Implementations\LocationDetailsService.cs" />
     <Compile Include="Services\Implementations\LocationSetService.cs" />
+    <Compile Include="ViewModels\LocationErrorViewModel.cs" />
+    <Compile Include="Views\LocationError.xaml.cs">
+      <DependentUpon>LocationError.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LocationInput.xaml.cs">
       <DependentUpon>LocationInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\LocationInputViewModel.cs" />
     <Compile Include="ViewModels\TravelTrackingViewModel.cs" />
+    <Page Include="Views\LocationError.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TimerWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

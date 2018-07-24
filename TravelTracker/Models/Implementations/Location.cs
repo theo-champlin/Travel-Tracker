@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows;
 
 namespace TravelTracker.Models.Implementations
 {
@@ -78,22 +79,39 @@ namespace TravelTracker.Models.Implementations
          }
       }
 
-      public Location()
+      public Location(ITheme appliedTheme)
       {
 #if NDEBUG
-         LocationInput locationWindow = new LocationInput
+         var locationWindowControl = new LocationInputViewModel
          {
             City = "Paris",
             Country = "France"
          };
 #else
-         var locationWindowControl = new LocationInputViewModel();
+         var locationWindowControl = new LocationInputViewModel(appliedTheme);
          var locationWindow = new LocationInput(locationWindowControl);
          locationWindow.ShowDialog();
+
+         while (!locationWindowControl.IsValidCitySet())
+         {
+            var errorWindowControl = new LocationErrorViewModel(appliedTheme);
+            var errorWindow = new LocationError(errorWindowControl);
+            errorWindow.ShowDialog();
+
+            if (errorWindowControl.ExitMode)
+            {
+               Application.Current.Shutdown();
+               return;
+            }
+
+            locationWindowControl.ClearInput();
+            locationWindow = new LocationInput(locationWindowControl);
+            locationWindow.ShowDialog();
+         }
 #endif
 
-         Country = locationWindowControl.Country;
-         City = locationWindowControl.City;
+         Country = locationWindowControl.LocationInputFields.CountryInput;
+         City = locationWindowControl.LocationInputFields.CityInput;
 
          WikiPageId = locationWindowControl.WikiPageId;
          WeatherAreaCode = locationWindowControl.WeatherAreaCode;

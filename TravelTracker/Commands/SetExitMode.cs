@@ -2,18 +2,12 @@
 using System.Windows;
 using System.Windows.Input;
 
-
 namespace TravelTracker.Commands
 {
    using ViewModels;
 
-   public class SetLocation : ICommand
+   class SetExitMode : ICommand
    {
-      public SetLocation(LocationInputViewModel currentInputControl)
-      {
-         this.currentInputControl = currentInputControl;
-      }
-
       public event EventHandler CanExecuteChanged
       {
          add
@@ -33,10 +27,15 @@ namespace TravelTracker.Commands
 
       public void Execute(object parameter)
       {
-         currentInputControl.FinalizeLocation();
+         errorWindowControl.ExitMode = true;
          ((Window)parameter).Close();
       }
 
-      private LocationInputViewModel currentInputControl;
+      public SetExitMode(LocationErrorViewModel errorWindowControl)
+      {
+         this.errorWindowControl = errorWindowControl;
+      }
+
+      private LocationErrorViewModel errorWindowControl;
    }
 }

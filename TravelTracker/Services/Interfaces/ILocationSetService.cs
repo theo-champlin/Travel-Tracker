@@ -48,5 +48,14 @@ namespace TravelTracker.Services.Interfaces
       /// weather code can not be found.
       /// </returns>
       string GetWeatherAreaCode(string country, string city);
+
+      /// <summary>
+      /// Determines whether the given city-country combination is one of those built into the
+      /// program.
+      /// </summary>
+      /// <param name="country"></param>
+      /// <param name="city"></param>
+      /// <returns>True if the city is recognized, false otherwise.</returns>
+      bool IsRecognizedCity(string country, string city);
    }
 }

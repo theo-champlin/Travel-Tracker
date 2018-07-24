@@ -5,39 +5,57 @@ using System.Windows.Input;
 namespace TravelTracker.ViewModels
 {
    using Commands;
+   using Models.Implementations;
+   using Models.Interfaces;
    using Services.Implementations;
    using Services.Interfaces;
 
    public class LocationInputViewModel
    {
-      public string Country { get; set; }
-         = String.Empty;
-
-      public string City { get; set; }
-         = String.Empty;
-
       public string WikiPageId
       {
          get
          {
-            return locationSetter.GetWikiPageId(Country, City);
+            return locationSetter.GetWikiPageId(
+               LocationInputFields.CountryInput,
+               LocationInputFields.CityInput);
          }
       }
       public string WeatherAreaCode
       {
          get
          {
-            return locationSetter.GetWeatherAreaCode(Country, City);
+            return locationSetter.GetWeatherAreaCode(
+               LocationInputFields.CountryInput,
+               LocationInputFields.CityInput);
          }
       }
 
-      private SetLocation _setLocation;
-      public ICommand SetLocation
+      public bool IsValidCitySet()
+      {
+         return locationSetter.IsRecognizedCity(
+            LocationInputFields.CountryInput,
+            LocationInputFields.CityInput);
+      }
+
+      public void ClearInput()
+      {
+         LocationInputFields.CountryInput = string.Empty;
+         LocationInputFields.CityInput = string.Empty;
+      }
+
+      private CloseWindow _closeWindow;
+      public ICommand CloseWindow
       {
          get
          {
-            return _setLocation;
+            return _closeWindow;
          }
+      }
+
+      public ITheme Theme
+      {
+         get;
       }
 
       public ObservableCollection<string> TypeaheadCountryList { get; set; }
@@ -46,38 +64,28 @@ namespace TravelTracker.ViewModels
       public ObservableCollection<string> TypeaheadCityList { get; set; }
          = new ObservableCollection<string> { };
 
-      private string _countrySelectionText;
-      public string CountrySelectionText
+      private LocationInputFields _locationInputFields;
+      public ILocationInputFields LocationInputFields
       {
          get
          {
-            return _countrySelectionText;
-         }
-         set
-         {
-            _countrySelectionText = value;
-            OnCountrySet();
+            return _locationInputFields;
          }
       }
 
-      public string CitySelectionText { get; set; }
-         = String.Empty;
-
-      public LocationInputViewModel()
+      public LocationInputViewModel(ITheme appliedTheme)
       {
          locationSetter.PopulateCountryCollection(TypeaheadCountryList);
-         _setLocation = new SetLocation(this);
-      }
-
-      public void FinalizeLocation()
-      {
-         City = CitySelectionText;
+         _locationInputFields = new LocationInputFields(OnCountrySet);
+         _closeWindow = new CloseWindow();
+         Theme = appliedTheme;
       }
 
       public void OnCountrySet()
       {
-         Country = CountrySelectionText;
-         locationSetter.PopulateCityCollection(Country, TypeaheadCityList);
+         locationSetter.PopulateCityCollection(
+            LocationInputFields.CountryInput,
+            TypeaheadCityList);
       }
 
       private ILocationSetService locationSetter = new LocationSetService(new CityFetchService());

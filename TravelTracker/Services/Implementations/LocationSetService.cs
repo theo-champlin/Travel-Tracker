@@ -68,6 +68,21 @@ namespace TravelTracker.Services.Implementations
             .FirstOrDefault();
       }
 
+      public bool IsRecognizedCity(string country, string city)
+      {
+         return AllCities
+            .Where(cityInfo =>
+               String.Compare(
+                  cityInfo.Country,
+                  country,
+                  StringComparison.OrdinalIgnoreCase) == 0
+               && String.Compare(
+                  cityInfo.Name,
+                  city,
+                  StringComparison.OrdinalIgnoreCase) == 0)
+            .Count() > 0;
+      }
+
       private List<CityInfo> AllCities;
    }
 }

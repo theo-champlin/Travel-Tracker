@@ -1,0 +1,69 @@
+﻿<Window x:Class="TravelTracker.Views.LocationError"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelTracker.Views"
+        mc:Ignorable="d"
+        Title="LocationError"
+        Height="125"
+        Width="310"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="{Binding Theme.SolidBackground}"
+        BorderThickness="5"
+        BorderBrush="{Binding Theme.Foreground}">
+   <Grid>
+      <Grid.RowDefinitions>
+         <RowDefinition/>
+         <RowDefinition/>
+      </Grid.RowDefinitions>
+
+      <TextBlock
+         Foreground="{Binding Theme.Foreground}"
+         Grid.Row="0"
+         HorizontalAlignment="Center"
+         Margin="5 0"
+         TextAlignment="Center"
+         TextWrapping="WrapWithOverflow"
+         VerticalAlignment="Center">
+         There was an error finding information on this location. Please edit the input and try again.
+      </TextBlock>
+
+      <Grid
+         Grid.Row="1">
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+         </Grid.ColumnDefinitions>
+         <Button
+            Background="{Binding Theme.SolidBackground}"
+            BorderThickness="2"
+            BorderBrush="{Binding Theme.Foreground}"
+            Foreground="{Binding Theme.Foreground}"
+            Command="{Binding CloseWindow}"
+            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                              AncestorType={x:Type Window}}}"
+            Grid.Column="0"
+            Height="25"
+            HorizontalAlignment="Center"
+            Width="100">
+            Enter Location
+         </Button>
+         <Button
+            Background="{Binding Theme.SolidBackground}"
+            BorderThickness="2"
+            BorderBrush="{Binding Theme.Foreground}"
+            Foreground="{Binding Theme.Foreground}"
+            Command="{Binding SetExitMode}"
+            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                              AncestorType={x:Type Window}}}"
+            Grid.Column="1"
+            Height="25"
+            HorizontalAlignment="Center"
+            Width="100">
+            Exit Application
+         </Button>
+      </Grid>
+   </Grid>
+</Window>

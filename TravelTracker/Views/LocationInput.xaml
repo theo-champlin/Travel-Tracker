@@ -9,8 +9,9 @@
         Title="Enter a Location"
         AllowsTransparency="True"
         WindowStyle="None"
-        BorderBrush="Black"
+        Background="{Binding Theme.SolidBackground}"
         BorderThickness="5"
+        BorderBrush="{Binding Theme.Foreground}"
         Height="100"
         Width="425">
 
@@ -25,36 +26,52 @@
             <ColumnDefinition/>
          </Grid.ColumnDefinitions>
 
-         <Label Grid.Row="0" Grid.Column="0" Content="Country:"/>
+         <Label
+            Foreground="{Binding Theme.Foreground}"
+            Grid.Row="0"
+            Grid.Column="0"
+            Content="Country:"/>
          <TextBox
+            BorderThickness="2"
+            BorderBrush="{Binding Theme.Foreground}"
             Margin="5,0,5,5"
             Grid.Row="1"
             Grid.Column="0"
             Height="25"
             Name="CountrySelector"
-            Text="{Binding CountrySelectionText, UpdateSourceTrigger=LostFocus}"
+            Text="{Binding LocationInputFields.CountryInput, UpdateSourceTrigger=LostFocus}"
             behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TypeaheadCountryList}"
             behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="CurrentCultureIgnoreCase">
          </TextBox>
 
-         <Label Grid.Row="0" Grid.Column="1" Content="City:"/>
+         <Label
+            Foreground="{Binding Theme.Foreground}"
+            Grid.Row="0"
+            Grid.Column="1"
+            Content="City:"/>
          <TextBox
+            BorderThickness="2"
+            BorderBrush="{Binding Theme.Foreground}"
             Margin="5,0,5,5"
             Grid.Row="1"
             Grid.Column="1"
             Height="25"
             Name="CitySelector"
-            Text="{Binding CitySelectionText, UpdateSourceTrigger=PropertyChanged}"
+            Text="{Binding LocationInputFields.CityInput, UpdateSourceTrigger=PropertyChanged}"
             behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TypeaheadCityList}"
             behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="CurrentCultureIgnoreCase">
          </TextBox>
       </Grid>
 
       <Button
+         Background="{Binding Theme.SolidBackground}"
+         BorderThickness="2"
+         BorderBrush="{Binding Theme.Foreground}"
+         Foreground="{Binding Theme.Foreground}"
          Margin="5"
          Width="100"
          Height="25"
-         Command="{Binding SetLocation}"
+         Command="{Binding CloseWindow}"
          CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
                            AncestorType={x:Type Window}}}">
          Set Time

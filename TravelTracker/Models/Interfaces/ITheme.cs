@@ -26,6 +26,14 @@ namespace TravelTracker.Models.Interfaces
       }
 
       /// <summary>
+      /// The suggested color of background elements for the current theme, fully opaque.
+      /// </summary>
+      Brush SolidBackground
+      {
+         get;
+      }
+
+      /// <summary>
       /// A command telling the theme to update to a lighter, blue color scheme.
       /// </summary>
       ICommand SetBlueTheme

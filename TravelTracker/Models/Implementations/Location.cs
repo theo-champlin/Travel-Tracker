@@ -89,24 +89,11 @@ namespace TravelTracker.Models.Implementations
          };
 #else
          var locationWindowControl = new LocationInputViewModel(appliedTheme);
-         var locationWindow = new LocationInput(locationWindowControl);
-         locationWindow.ShowDialog();
-
-         while (!locationWindowControl.IsValidCitySet())
+         if (!SetLocation(
+            locationWindowControl,
+            appliedTheme))
          {
-            var errorWindowControl = new LocationErrorViewModel(appliedTheme);
-            var errorWindow = new LocationError(errorWindowControl);
-            errorWindow.ShowDialog();
-
-            if (errorWindowControl.ExitMode)
-            {
-               Application.Current.Shutdown();
-               return;
-            }
-
-            locationWindowControl.ClearInput();
-            locationWindow = new LocationInput(locationWindowControl);
-            locationWindow.ShowDialog();
+            return;
          }
 #endif
 
@@ -125,5 +112,40 @@ namespace TravelTracker.Models.Implementations
          PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
       #endregion
+
+      private bool SetLocation(
+         LocationInputViewModel locationWindowControl,
+         ITheme appliedTheme)
+      {
+         do
+         {
+            locationWindowControl.ClearInput();
+            DisplayLocationInputWindow(locationWindowControl);
+         } while (!locationWindowControl.IsValidCitySet()
+            && ShouldContinueLocationSelection(appliedTheme));
+
+         return locationWindowControl.IsValidCitySet();
+      }
+
+      private bool ShouldContinueLocationSelection(ITheme appliedTheme)
+      {
+         var errorWindowControl = new LocationErrorViewModel(appliedTheme);
+         var errorWindow = new LocationError(errorWindowControl);
+         errorWindow.ShowDialog();
+
+         if (errorWindowControl.ExitMode)
+         {
+            Application.Current.Shutdown();
+            return false;
+         }
+
+         return true;
+      }
+
+      private void DisplayLocationInputWindow(LocationInputViewModel locationWindowControl)
+      {
+         var locationWindow = new LocationInput(locationWindowControl);
+         locationWindow.ShowDialog();
+      }
    }
 }

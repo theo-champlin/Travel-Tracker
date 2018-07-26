@@ -89,6 +89,10 @@
     <Compile Include="Commands\CloseWindow.cs" />
     <Compile Include="Commands\SetExitMode.cs" />
     <Compile Include="Commands\UpdateTheme.cs" />
+    <Compile Include="Factories\Implementations\LocationInputFactory.cs" />
+    <Compile Include="Factories\Implementations\TravelTrackerFactory.cs" />
+    <Compile Include="Factories\Interfaces\ILocationInputFactory.cs" />
+    <Compile Include="Factories\Interfaces\ITravelTrackerFactory.cs" />
     <Compile Include="Models\Implementations\Navigator.cs" />
     <Compile Include="Models\Interfaces\ILocation.cs" />
     <Compile Include="Models\Interfaces\ILocationInputFields.cs" />

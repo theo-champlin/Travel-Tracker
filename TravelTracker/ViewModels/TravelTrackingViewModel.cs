@@ -4,6 +4,7 @@ using System.Windows.Input;
 namespace TravelTracker.ViewModels
 {
    using Commands;
+   using Factories.Implementations;
    using Models.Implementations;
    using Models.Interfaces;
    using Services.Implementations;
@@ -49,7 +50,9 @@ namespace TravelTracker.ViewModels
 
       public TravelTrackingViewModel(ITheme currentTheme)
       {
-         _location = new Location(currentTheme);
+         _location = new Location(
+            new LocationInputFactory(),
+            currentTheme);
          if (string.IsNullOrEmpty(Location.City))
          {
             return;

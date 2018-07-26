@@ -3,6 +3,7 @@ using System.Windows;
 
 namespace TravelTracker.Models.Implementations
 {
+   using Factories.Interfaces;
    using Interfaces;
    using Views;
    using ViewModels;
@@ -79,7 +80,9 @@ namespace TravelTracker.Models.Implementations
          }
       }
 
-      public Location(ITheme appliedTheme)
+      public Location(
+         ILocationInputFactory locationFactory,
+         ITheme appliedTheme)
       {
 #if NDEBUG
          var locationWindowControl = new LocationInputViewModel(appliedTheme)
@@ -91,10 +94,8 @@ namespace TravelTracker.Models.Implementations
             }
          };
 #else
-         var locationWindowControl = new LocationInputViewModel(appliedTheme);
-         if (!SetLocation(
-            locationWindowControl,
-            appliedTheme))
+         var locationWindowControl = locationFactory.Generate(appliedTheme);
+         if (locationWindowControl == null)
          {
             return;
          }

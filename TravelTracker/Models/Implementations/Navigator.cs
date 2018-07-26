@@ -6,6 +6,7 @@ using System.Windows.Input;
 namespace TravelTracker.Models.Implementations
 {
    using Commands;
+   using Factories.Interfaces;
    using Interfaces;
    using ViewModels;
 
@@ -71,8 +72,12 @@ namespace TravelTracker.Models.Implementations
          }
       }
 
-      public Navigator(ITheme currentTheme)
+      public Navigator(
+         ITravelTrackerFactory trackerFactory,
+         ITheme currentTheme)
       {
+         this.trackerFactory = trackerFactory;
+
          NavigateToNextTracker = new NavigateToNextTracker(this);
          NavigateToPreviousTracker = new NavigateToPreviousTracker(this);
 
@@ -82,7 +87,7 @@ namespace TravelTracker.Models.Implementations
 
       public void Add(ITheme currentTheme)
       {
-         travelTrackingOptions.Add(new TravelTrackingViewModel(currentTheme));
+         travelTrackingOptions.Add(trackerFactory.Generate(currentTheme));
          CurrentTracker = travelTrackingOptions.Last();
       }
 
@@ -132,5 +137,7 @@ namespace TravelTracker.Models.Implementations
 
       private IList<TravelTrackingViewModel> travelTrackingOptions =
          new List<TravelTrackingViewModel>();
+
+      ITravelTrackerFactory trackerFactory;
    }
 }

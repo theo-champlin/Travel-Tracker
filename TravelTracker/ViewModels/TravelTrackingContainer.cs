@@ -3,6 +3,7 @@
 namespace TravelTracker.ViewModels
 {
    using Commands;
+   using Factories.Implementations;
    using Models.Implementations;
    using Models.Interfaces;
 
@@ -29,7 +30,9 @@ namespace TravelTracker.ViewModels
       public TravelTrackingContainer()
       {
          InitializeTheme();
-         Navigator = new Navigator(Theme);
+         Navigator = new Navigator(
+            new TravelTrackerFactory(),
+            Theme);
       }
 
       private void InitializeTheme()

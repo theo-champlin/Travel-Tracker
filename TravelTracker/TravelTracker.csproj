@@ -89,6 +89,7 @@
     <Compile Include="Commands\CloseWindow.cs" />
     <Compile Include="Commands\SetExitMode.cs" />
     <Compile Include="Commands\UpdateTheme.cs" />
+    <Compile Include="Models\Implementations\Navigator.cs" />
     <Compile Include="Models\Interfaces\ILocation.cs" />
     <Compile Include="Models\Interfaces\ILocationInputFields.cs" />
     <Compile Include="Models\Interfaces\ISettings.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Models\Interfaces\ITimer.cs" />
     <Compile Include="Models\Interfaces\IWeather.cs" />
     <Compile Include="Models\Implementations\LocationInputFields.cs" />
+    <Compile Include="Models\Interfaces\INavigator.cs" />
     <Compile Include="Services\Interfaces\ICityFetchService.cs" />
     <Compile Include="Services\Interfaces\ILocationDetailsFetcher.cs" />
     <Compile Include="Services\Interfaces\ILocationDetailsService.cs" />

@@ -3,13 +3,13 @@ using System.Windows.Input;
 
 namespace TravelTracker.Commands
 {
-   using ViewModels;
+   using Models.Interfaces;
 
    public class NavigateToNextTracker : ICommand
    {
-      public NavigateToNextTracker(TravelTrackingContainer trackingContainer)
+      public NavigateToNextTracker(INavigator trackerNavigator)
       {
-         this.trackingContainer = trackingContainer;
+         this.trackerNavigator = trackerNavigator;
       }
 
       public event EventHandler CanExecuteChanged
@@ -26,14 +26,14 @@ namespace TravelTracker.Commands
 
       public bool CanExecute(object parameter)
       {
-         return trackingContainer.IsNotLast();
+         return trackerNavigator.IsNotLast();
       }
 
       public void Execute(object parameter)
       {
-         trackingContainer.SkipToNext();
+         trackerNavigator.SkipToNext();
       }
 
-      private TravelTrackingContainer trackingContainer;
+      private INavigator trackerNavigator;
    }
 }

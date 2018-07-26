@@ -3,13 +3,14 @@ using System.Windows.Input;
 
 namespace TravelTracker.Commands
 {
-   using ViewModels;
+   using Models.Interfaces;
+   using Models.Implementations;
 
    public class AddTracker : ICommand
    {
-      public AddTracker(TravelTrackingContainer trackingContainer)
+      public AddTracker(INavigator trackerNavigator)
       {
-         this.trackingContainer = trackingContainer;
+         this.trackerNavigator = trackerNavigator;
       }
 
       public event EventHandler CanExecuteChanged
@@ -31,9 +32,9 @@ namespace TravelTracker.Commands
 
       public void Execute(object parameter)
       {
-         trackingContainer.Add();
+         trackerNavigator.Add(parameter as Theme);
       }
 
-      private TravelTrackingContainer trackingContainer;
+      private INavigator trackerNavigator;
    }
 }

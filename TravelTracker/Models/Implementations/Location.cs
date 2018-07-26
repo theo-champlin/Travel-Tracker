@@ -147,7 +147,7 @@ namespace TravelTracker.Models.Implementations
 
       private void DisplayLocationInputWindow(LocationInputViewModel locationWindowControl)
       {
-         var locationWindow = new LocationInput(locationWindowControl);
+         var locationWindow = new Views.LocationInput(locationWindowControl);
          locationWindow.ShowDialog();
       }
    }

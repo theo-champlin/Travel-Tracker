@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace TravelTracker.ViewModels
 {
@@ -9,23 +6,8 @@ namespace TravelTracker.ViewModels
    using Models.Implementations;
    using Models.Interfaces;
 
-   public class TravelTrackingContainer : INotifyPropertyChanged
+   public class TravelTrackingContainer
    {
-      private TravelTrackingViewModel _currentTracker;
-      public TravelTrackingViewModel CurrentTracker
-      {
-         get
-         {
-            return _currentTracker;
-         }
-
-         private set
-         {
-            _currentTracker = value;
-            OnPropertyChanged("CurrentTracker");
-         }
-      }
-
       private ExitApplication _exitApplication;
       public ICommand ExitApplication
       {
@@ -40,77 +22,15 @@ namespace TravelTracker.ViewModels
          }
       }
 
-      public ICommand AddTracker { get; private set; }
-
-      public NavigateToNextTracker NavigateToNextTracker { get; private set; }
-
-      public NavigateToPreviousTracker NavigateToPreviousTracker { get; private set; }
+      public INavigator Navigator { get; private set; }
 
       public ITheme Theme { get; private set; }
 
       public TravelTrackingContainer()
       {
          InitializeTheme();
-
-         NavigateToNextTracker = new NavigateToNextTracker(this);
-         NavigateToPreviousTracker = new NavigateToPreviousTracker(this);
-
-         AddTracker = new AddTracker(this);
-         AddTracker.Execute(null);
+         Navigator = new Navigator(Theme);
       }
-
-      public void Add()
-      {
-         travelTrackingOptions.Add(new TravelTrackingViewModel(Theme));
-         CurrentTracker = travelTrackingOptions.Last();
-      }
-
-      public bool IsNotLast()
-      {
-         var indexOfCurrent = travelTrackingOptions.IndexOf(CurrentTracker);
-         return indexOfCurrent < travelTrackingOptions.Count - 1;
-      }
-
-      public void SkipToNext()
-      {
-         var indexOfCurrent = travelTrackingOptions.IndexOf(CurrentTracker);
-
-         if (indexOfCurrent == travelTrackingOptions.Count - 1)
-         {
-            return;
-         }
-
-         CurrentTracker = travelTrackingOptions.ElementAt(indexOfCurrent + 1);
-      }
-
-      public bool IsNotFirst()
-      {
-         return travelTrackingOptions.IndexOf(CurrentTracker) > 0;
-      }
-
-      public void SkipToPrevious()
-      {
-         var indexOfCurrent = travelTrackingOptions.IndexOf(CurrentTracker);
-
-         if (indexOfCurrent == 0)
-         {
-            return;
-         }
-
-         CurrentTracker = travelTrackingOptions.ElementAt(indexOfCurrent - 1);
-      }
-
-      #region INotifyPropertyChanged
-      public event PropertyChangedEventHandler PropertyChanged;
-
-      private void OnPropertyChanged(string propertyName)
-      {
-         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-      }
-      #endregion
-
-      private IList<TravelTrackingViewModel> travelTrackingOptions =
-         new List<TravelTrackingViewModel>();
 
       private void InitializeTheme()
       {

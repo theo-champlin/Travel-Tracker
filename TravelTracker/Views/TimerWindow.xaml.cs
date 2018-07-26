@@ -12,7 +12,7 @@ namespace TravelTracker.Views
       public TimerWindow()
       {
          InitializeComponent();
-         DataContext = new TravelTrackingViewModel();
+         DataContext = new TravelTrackingContainer();
 
          MouseLeftButtonDown += delegate { DragMove(); };
       }

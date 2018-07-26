@@ -91,6 +91,23 @@
             Style="{DynamicResource ContextItemTemplate}"/>
          <Separator Foreground="LightGray"/>
          <MenuItem
+            Command="{Binding AddTracker}"
+            Header="Add"
+            Style="{DynamicResource ContextItemTemplate}"/>
+         <MenuItem
+            Command="{Binding NavigateToNextTracker}"
+            CommandParameter="{Binding null}"
+            CommandTarget="{Binding Path=PlacementTarget,RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+            Header="Next"
+            Style="{DynamicResource ContextItemTemplate}"/>
+         <MenuItem
+            Command="{Binding NavigateToPreviousTracker}"
+            CommandParameter="{Binding null}"
+            CommandTarget="{Binding Path=PlacementTarget,RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+            Header="Previous"
+            Style="{DynamicResource ContextItemTemplate}"/>
+         <Separator Foreground="LightGray"/>
+         <MenuItem
             Command="{Binding Theme.SetBlueTheme}"
             Header="Blue"
             Style="{DynamicResource ContextItemTemplate}"/>
@@ -119,12 +136,12 @@
             Grid.Row="0"
             Grid.Column="0">
             <Hyperlink
-               Command="{Binding NavigateToWiki}"
+               Command="{Binding CurrentTracker.NavigateToWiki}"
                TextDecorations="None">
                <TextBlock
                   FontSize="12"
                   Foreground="{Binding Theme.Foreground}"
-                  Text="{Binding Location.FullName}"/>
+                  Text="{Binding CurrentTracker.Location.FullName}"/>
             </Hyperlink>
          </TextBlock>
          <TextBlock
@@ -134,7 +151,7 @@
             Grid.Row="1"
             Grid.Column="0"
             HorizontalAlignment="Center"
-            Text="{Binding Timer.FormattedTime}"
+            Text="{Binding CurrentTracker.Timer.FormattedTime}"
             VerticalAlignment="Center"/>
       </Grid>
       <Canvas
@@ -145,9 +162,9 @@
          <Canvas.InputBindings>
             <MouseBinding
                Gesture="LeftClick"
-               Command="{Binding Weather.NavigateToWeather}"/>
+               Command="{Binding CurrentTracker.Weather.NavigateToWeather}"/>
          </Canvas.InputBindings>
-         <ContentControl Content="{Binding Weather.Icon}"/>
+         <ContentControl Content="{Binding CurrentTracker.Weather.Icon}"/>
       </Canvas>
    </Grid>
 </Window>

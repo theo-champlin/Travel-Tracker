@@ -82,10 +82,13 @@ namespace TravelTracker.Models.Implementations
       public Location(ITheme appliedTheme)
       {
 #if NDEBUG
-         var locationWindowControl = new LocationInputViewModel
+         var locationWindowControl = new LocationInputViewModel(appliedTheme)
          {
-            City = "Paris",
-            Country = "France"
+            LocationInputFields = new LocationInputFields(() => { })
+            {
+               CityInput = "Paris",
+               CountryInput = "France"
+            }
          };
 #else
          var locationWindowControl = new LocationInputViewModel(appliedTheme);

@@ -50,7 +50,7 @@ namespace TravelTracker.Models.Implementations
          private set
          {
             _solidBackground = value;
-            OnPropertyChanged("Background");
+            OnPropertyChanged("SolidBackground");
          }
       }
 

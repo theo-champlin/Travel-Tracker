@@ -80,7 +80,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\AddTracker.cs" />
     <Compile Include="Commands\ExitApplication.cs" />
+    <Compile Include="Commands\NavigateToNextTracker.cs" />
+    <Compile Include="Commands\NavigateToPreviousTracker.cs" />
     <Compile Include="Commands\NavigateToWeather.cs" />
     <Compile Include="Commands\NavigateToWiki.cs" />
     <Compile Include="Commands\CloseWindow.cs" />
@@ -105,6 +108,7 @@
     <Compile Include="Services\Implementations\LocationDetailsService.cs" />
     <Compile Include="Services\Implementations\LocationSetService.cs" />
     <Compile Include="ViewModels\LocationErrorViewModel.cs" />
+    <Compile Include="ViewModels\TravelTrackingContainer.cs" />
     <Compile Include="Views\LocationError.xaml.cs">
       <DependentUpon>LocationError.xaml</DependentUpon>
     </Compile>

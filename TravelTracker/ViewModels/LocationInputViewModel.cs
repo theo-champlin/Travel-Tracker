@@ -71,6 +71,12 @@ namespace TravelTracker.ViewModels
          {
             return _locationInputFields;
          }
+#if DEBUG
+         set
+         {
+            _locationInputFields = (LocationInputFields)value;
+         }
+#endif
       }
 
       public LocationInputViewModel(ITheme appliedTheme)

@@ -20,15 +20,6 @@ namespace TravelTracker.ViewModels
          }
       }
 
-      private ITheme _theme;
-      public ITheme Theme
-      {
-         get
-         {
-            return _theme;
-         }
-      }
-
       private ITimer _timer;
       public ITimer Timer
       {
@@ -56,25 +47,9 @@ namespace TravelTracker.ViewModels
          }
       }
 
-      private ExitApplication _exitApplication;
-      public ICommand ExitApplication
+      public TravelTrackingViewModel(ITheme currentTheme)
       {
-         get
-         {
-            if (_exitApplication == null)
-            {
-               _exitApplication = new ExitApplication();
-            }
-
-            return _exitApplication;
-         }
-      }
-
-      public TravelTrackingViewModel()
-      {
-         InitializeTheme();
-
-         _location = new Location(Theme);
+         _location = new Location(currentTheme);
          if (string.IsNullOrEmpty(Location.City))
          {
             return;
@@ -121,12 +96,6 @@ namespace TravelTracker.ViewModels
             timerUtil.GetLocationTime(DateTime.UtcNow),
             weatherAreaCode,
             locationDetails);
-      }
-
-      private void InitializeTheme()
-      {
-         _theme = new Theme();
-         _theme.SetBlueTheme.Execute(null);
       }
    }
 }

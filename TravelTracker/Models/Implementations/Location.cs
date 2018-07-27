@@ -10,6 +10,8 @@ namespace TravelTracker.Models.Implementations
 
    public class Location : ILocation
    {
+      #region Properties
+
       public string FullName
       {
          get
@@ -80,6 +82,10 @@ namespace TravelTracker.Models.Implementations
          }
       }
 
+      #endregion
+
+      #region Public
+
       public Location(
          ILocationInputFactory locationFactory,
          ITheme appliedTheme)
@@ -108,6 +114,8 @@ namespace TravelTracker.Models.Implementations
          WeatherAreaCode = locationWindowControl.WeatherAreaCode;
       }
 
+      #endregion
+
       #region INotifyPropertyChanged
       public event PropertyChangedEventHandler PropertyChanged;
 
@@ -116,6 +124,8 @@ namespace TravelTracker.Models.Implementations
          PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
       #endregion
+
+      #region Private
 
       private bool SetLocation(
          LocationInputViewModel locationWindowControl,
@@ -151,5 +161,7 @@ namespace TravelTracker.Models.Implementations
          var locationWindow = new Views.LocationInput(locationWindowControl);
          locationWindow.ShowDialog();
       }
+
+      #endregion
    }
 }

@@ -6,6 +6,8 @@ namespace TravelTracker.Services.Implementations
 
    public class TimerUtility : ITimerUtility
    {
+      #region Public
+
       public TimerUtility(
          ILocationDetailsService locationDetails,
          string country,
@@ -42,6 +44,12 @@ namespace TravelTracker.Services.Implementations
          return TimeSpan.FromMilliseconds(millisecondsUntilUpdate);
       }
 
+      #endregion
+
+      #region Members
+
       private int offset;
+
+      #endregion
    }
 }

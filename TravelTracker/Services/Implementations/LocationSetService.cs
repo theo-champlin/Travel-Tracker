@@ -9,6 +9,8 @@ namespace TravelTracker.Services.Implementations
 
    public class LocationSetService : ILocationSetService
    {
+      #region Public
+
       public LocationSetService(ICityFetchService cityFetcher)
       {
          AllCities = cityFetcher.GetCities();
@@ -83,6 +85,12 @@ namespace TravelTracker.Services.Implementations
             .Count() > 0;
       }
 
+      #endregion
+
+      #region Members
+
       private List<CityInfo> AllCities;
+
+      #endregion
    }
 }

@@ -9,6 +9,8 @@ namespace TravelTracker.Models.Implementations
 
    public class Theme : ITheme
    {
+      #region Properties
+
       private Brush _foreground;
       public Brush Foreground
       {
@@ -84,6 +86,10 @@ namespace TravelTracker.Models.Implementations
          }
       }
 
+      #endregion
+
+      #region Public
+
       public Theme()
       {
          SetBlueTheme = new UpdateTheme(
@@ -104,13 +110,17 @@ namespace TravelTracker.Models.Implementations
          SolidBackground = new SolidColorBrush(background);
       }
 
+      #endregion
+
       #region INotifyPropertyChanged
+
       public event PropertyChangedEventHandler PropertyChanged;
 
       private void OnPropertyChanged(string propertyName)
       {
          PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
+
       #endregion
    }
 }

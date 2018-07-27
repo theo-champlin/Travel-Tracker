@@ -8,6 +8,8 @@ namespace TravelTracker.Services.Implementations
 
    public class LocationDetailsFetcher : ILocationDetailsFetcher
    {
+      #region Public
+
       public Stream FetchWeatherDetailsForLocation(string country, string city)
       {
          return FetchLocationInformation(
@@ -25,6 +27,10 @@ namespace TravelTracker.Services.Implementations
             TIMEZONE_SERVICE_PATH).GetResponseStream();
       }
 
+      #endregion
+
+      #region Members
+
       private static string ServiceKey = Settings.AppSettings.LocationDetailsServiceKey;
       private const string SERVICE_DOMAIN = "https://api.worldweatheronline.com/premium/v1/";
       private const string TIMEZONE_SERVICE_PATH = "tz.ashx";
@@ -37,6 +43,10 @@ namespace TravelTracker.Services.Implementations
          "&num_of_days=1" +
          "&mca=no";
 
+      #endregion
+
+      #region Private
+
       private HttpWebResponse FetchLocationInformation(
          string country,
          string city,
@@ -48,5 +58,7 @@ namespace TravelTracker.Services.Implementations
          var request = (HttpWebRequest)WebRequest.Create(url);
          return (HttpWebResponse)request.GetResponse();
       }
+
+      #endregion
    }
 }

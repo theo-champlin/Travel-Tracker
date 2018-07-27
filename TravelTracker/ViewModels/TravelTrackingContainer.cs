@@ -9,6 +9,8 @@ namespace TravelTracker.ViewModels
 
    public class TravelTrackingContainer
    {
+      #region Properties
+
       private ExitApplication _exitApplication;
       public ICommand ExitApplication
       {
@@ -27,6 +29,10 @@ namespace TravelTracker.ViewModels
 
       public ITheme Theme { get; private set; }
 
+      #endregion
+
+      #region Public
+
       public TravelTrackingContainer()
       {
          InitializeTheme();
@@ -35,10 +41,16 @@ namespace TravelTracker.ViewModels
             Theme);
       }
 
+      #endregion
+
+      #region Private
+
       private void InitializeTheme()
       {
          Theme = new Theme();
          Theme.SetBlueTheme.Execute(null);
       }
+
+      #endregion
    }
 }

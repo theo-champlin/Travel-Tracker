@@ -6,6 +6,8 @@ namespace TravelTracker.Models.Implementations
 
    public class LocationInputFields : ILocationInputFields
    {
+      #region Properties
+
       private string _countryInput = string.Empty;
       public string CountryInput
       {
@@ -37,20 +39,32 @@ namespace TravelTracker.Models.Implementations
 
       public delegate void CountrySetCallback();
 
+      #endregion
+
+      #region Public
+
       public LocationInputFields(CountrySetCallback onCountrySet)
       {
          this.onCountrySet = onCountrySet;
       }
 
+      #endregion
+
       #region INotifyPropertyChanged
+
       public event PropertyChangedEventHandler PropertyChanged;
 
       private void OnPropertyChanged(string propertyName)
       {
          PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
+
       #endregion
 
+      #region Members
+
       private CountrySetCallback onCountrySet;
+
+      #endregion
    }
 }

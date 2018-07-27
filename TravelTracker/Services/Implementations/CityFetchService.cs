@@ -12,6 +12,8 @@ namespace TravelTracker.Services.Implementations
 
    public class CityFetchService : ICityFetchService
    {
+      #region Public
+
       public List<CityInfo> GetCities()
       {
          using (var cityListfile = File.OpenText(Settings.AppSettings.CityLookupLocation))
@@ -20,5 +22,7 @@ namespace TravelTracker.Services.Implementations
             return new JsonSerializer().Deserialize<IEnumerable<CityInfo>>(jsonTextReader).ToList();
          }
       }
+
+      #endregion
    }
 }

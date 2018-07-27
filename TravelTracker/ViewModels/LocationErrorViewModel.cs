@@ -7,6 +7,8 @@ namespace TravelTracker.ViewModels
 
    public class LocationErrorViewModel
    {
+      #region Properties
+
       private CloseWindow _closeWindow;
       public ICommand CloseWindow
       {
@@ -32,6 +34,10 @@ namespace TravelTracker.ViewModels
          get;
       }
 
+      #endregion
+
+      #region Public
+
       public LocationErrorViewModel(ITheme appliedTheme)
       {
          _closeWindow = new CloseWindow();
@@ -39,5 +45,7 @@ namespace TravelTracker.ViewModels
          ExitMode = false;
          Theme = appliedTheme;
       }
+
+      #endregion
    }
 }

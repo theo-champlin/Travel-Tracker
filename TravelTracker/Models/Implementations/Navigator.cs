@@ -12,6 +12,8 @@ namespace TravelTracker.Models.Implementations
 
    public class Navigator : INavigator
    {
+      #region Properties
+
       private TravelTrackingViewModel _currentTracker;
       public TravelTrackingViewModel CurrentTracker
       {
@@ -72,6 +74,10 @@ namespace TravelTracker.Models.Implementations
          }
       }
 
+      #endregion
+
+      #region Public
+
       public Navigator(
          ITravelTrackerFactory trackerFactory,
          ITheme currentTheme)
@@ -126,18 +132,26 @@ namespace TravelTracker.Models.Implementations
          CurrentTracker = travelTrackingOptions.ElementAt(indexOfCurrent - 1);
       }
 
+      #endregion
+
       #region INotifyPropertyChanged
+
       public event PropertyChangedEventHandler PropertyChanged;
 
       private void OnPropertyChanged(string propertyName)
       {
          PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
+
       #endregion
+
+      #region Members
 
       private IList<TravelTrackingViewModel> travelTrackingOptions =
          new List<TravelTrackingViewModel>();
 
       ITravelTrackerFactory trackerFactory;
+
+      #endregion
    }
 }

@@ -8,9 +8,15 @@ namespace TravelTracker.Models.Implementations
 
    internal class Settings : ISettings
    {
+      #region Properties
+
       public static ISettings AppSettings { get { return ControllerInstance.Value; } }
       public string CityLookupLocation { get; set; }
       public string LocationDetailsServiceKey { get; set; }
+
+      #endregion
+
+      #region Private
 
       private Settings() { }
 
@@ -23,7 +29,13 @@ namespace TravelTracker.Models.Implementations
          }
       }
 
+      #endregion
+
+      #region Members
+
       private static readonly Lazy<Settings> ControllerInstance =
         new Lazy<Settings>(() => Read(@"Res/appsettings.json"));
+
+      #endregion
    }
 }

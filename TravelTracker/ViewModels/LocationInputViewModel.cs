@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace TravelTracker.ViewModels
@@ -12,6 +11,23 @@ namespace TravelTracker.ViewModels
 
    public class LocationInputViewModel
    {
+      #region Properties
+
+      private LocationInputFields _locationInputFields;
+      public ILocationInputFields LocationInputFields
+      {
+         get
+         {
+            return _locationInputFields;
+         }
+#if DEBUG
+         set
+         {
+            _locationInputFields = (LocationInputFields)value;
+         }
+#endif
+      }
+
       public string WikiPageId
       {
          get
@@ -31,6 +47,28 @@ namespace TravelTracker.ViewModels
          }
       }
 
+      public ICommand CloseWindow { get; private set; }
+
+      public ITheme Theme { get; private set; }
+
+      public ObservableCollection<string> TypeaheadCountryList { get; set; }
+         = new ObservableCollection<string> { };
+
+      public ObservableCollection<string> TypeaheadCityList { get; set; }
+         = new ObservableCollection<string> { };
+
+      #endregion
+
+      #region Public
+
+      public LocationInputViewModel(ITheme appliedTheme)
+      {
+         locationSetter.PopulateCountryCollection(TypeaheadCountryList);
+         _locationInputFields = new LocationInputFields(OnCountrySet);
+         CloseWindow = new CloseWindow();
+         Theme = appliedTheme;
+      }
+
       public bool IsValidCitySet()
       {
          return locationSetter.IsRecognizedCity(
@@ -44,49 +82,6 @@ namespace TravelTracker.ViewModels
          LocationInputFields.CityInput = string.Empty;
       }
 
-      private CloseWindow _closeWindow;
-      public ICommand CloseWindow
-      {
-         get
-         {
-            return _closeWindow;
-         }
-      }
-
-      public ITheme Theme
-      {
-         get;
-      }
-
-      public ObservableCollection<string> TypeaheadCountryList { get; set; }
-         = new ObservableCollection<string> { };
-
-      public ObservableCollection<string> TypeaheadCityList { get; set; }
-         = new ObservableCollection<string> { };
-
-      private LocationInputFields _locationInputFields;
-      public ILocationInputFields LocationInputFields
-      {
-         get
-         {
-            return _locationInputFields;
-         }
-#if DEBUG
-         set
-         {
-            _locationInputFields = (LocationInputFields)value;
-         }
-#endif
-      }
-
-      public LocationInputViewModel(ITheme appliedTheme)
-      {
-         locationSetter.PopulateCountryCollection(TypeaheadCountryList);
-         _locationInputFields = new LocationInputFields(OnCountrySet);
-         _closeWindow = new CloseWindow();
-         Theme = appliedTheme;
-      }
-
       public void OnCountrySet()
       {
          locationSetter.PopulateCityCollection(
@@ -94,6 +89,12 @@ namespace TravelTracker.ViewModels
             TypeaheadCityList);
       }
 
+      #endregion
+
+      #region Members
+
       private ILocationSetService locationSetter = new LocationSetService(new CityFetchService());
+
+      #endregion
    }
 }

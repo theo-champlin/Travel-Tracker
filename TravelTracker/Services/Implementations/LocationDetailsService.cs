@@ -10,6 +10,8 @@ namespace TravelTracker.Services.Implementations
 
    public class LocationDetailsService : ILocationDetailsService
    {
+      #region Public
+
       public LocationDetailsService(ILocationDetailsFetcher locationDetails)
       {
          this.locationDetails = locationDetails;
@@ -47,7 +49,15 @@ namespace TravelTracker.Services.Implementations
          }
       }
 
+      #endregion
+
+      #region Members
+
       private ILocationDetailsFetcher locationDetails;
+
+      #endregion
+
+      #region Private
 
       private struct TimeZone
       {
@@ -98,5 +108,7 @@ namespace TravelTracker.Services.Implementations
             weatherCode,
             NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign);
       }
+
+      #endregion
    }
 }

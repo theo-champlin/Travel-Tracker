@@ -12,52 +12,32 @@ namespace TravelTracker.ViewModels
 
    public class TravelTrackingViewModel
    {
-      private ILocation _location;
-      public ILocation Location
-      {
-         get
-         {
-            return _location;
-         }
-      }
+      #region Properties
 
-      private ITimer _timer;
-      public ITimer Timer
-      {
-         get
-         {
-            return _timer;
-         }
-      }
+      public ILocation Location { get; private set; }
 
-      private IWeather _weather;
-      public IWeather Weather
-      {
-         get
-         {
-            return _weather;
-         }
-      }
+      public ITimer Timer { get; private set; }
 
-      private NavigateToWiki _navigateToWiki;
-      public ICommand NavigateToWiki
-      {
-         get
-         {
-            return _navigateToWiki;
-         }
-      }
+      public IWeather Weather { get; private set; }
+
+      public ICommand NavigateToWiki { get; private set; }
+
+      #endregion
+
+      #region Public
 
       public TravelTrackingViewModel(ITheme currentTheme)
       {
-         _location = new Location(
+         Location = new Location(
             new LocationInputFactory(),
             currentTheme);
+
          if (string.IsNullOrEmpty(Location.City))
          {
             return;
          }
-         _navigateToWiki = new NavigateToWiki(Location.WikiPageId);
+
+         NavigateToWiki = new NavigateToWiki(Location.WikiPageId);
 
          StartTimeTracking(
             Location.Country,
@@ -71,10 +51,18 @@ namespace TravelTracker.ViewModels
             Location.WeatherAreaCode);
       }
 
+      #endregion
+
+      #region Members
+
       private ITimerUtility timerUtil;
 
       private ILocationDetailsService locationDetails
          = new LocationDetailsService(new LocationDetailsFetcher());
+
+      #endregion
+
+      #region Private
 
       private void StartTimeTracking(
          string country,
@@ -85,7 +73,7 @@ namespace TravelTracker.ViewModels
             country,
             city);
 
-         _timer = new Timer(timerUtil);
+         Timer = new Timer(timerUtil);
       }
 
       private void StartWeatherTracking(
@@ -93,12 +81,14 @@ namespace TravelTracker.ViewModels
          string city,
          string weatherAreaCode)
       {
-         _weather = new Weather(
+         Weather = new Weather(
             country,
             city,
             timerUtil.GetLocationTime(DateTime.UtcNow),
             weatherAreaCode,
             locationDetails);
       }
+
+      #endregion
    }
 }

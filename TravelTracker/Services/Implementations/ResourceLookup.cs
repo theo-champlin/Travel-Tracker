@@ -7,6 +7,8 @@ namespace TravelTracker.Services.Implementations
 
    class ResourceLookup : IResourceLookup
    {
+      #region Public
+
       public object FindWeatherIcon(
          int weatherCode,
          DateTime localTime)
@@ -20,6 +22,10 @@ namespace TravelTracker.Services.Implementations
 
          return App.Current.FindResource(weatherIconNames.DayImage);
       }
+
+      #endregion
+
+      #region Members
 
       private class WeatherConditionIcon
       {
@@ -115,5 +121,7 @@ namespace TravelTracker.Services.Implementations
             { 116, WeatherConditionIcon.PartlyCloudy },
             { 113, WeatherConditionIcon.Clear }
          };
+
+      #endregion
    }
 }

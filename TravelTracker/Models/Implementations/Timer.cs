@@ -9,6 +9,8 @@ namespace TravelTracker.Models.Implementations
 
    public class Timer : ITimer
    {
+      #region Properties
+
       private string _time;
       public string FormattedTime
       {
@@ -24,6 +26,10 @@ namespace TravelTracker.Models.Implementations
          }
       }
 
+      #endregion
+
+      #region Public
+
       public Timer(ITimerUtility timerUtil)
       {
          this.timerUtil = timerUtil;
@@ -37,17 +43,27 @@ namespace TravelTracker.Models.Implementations
             Dispatcher.CurrentDispatcher);
       }
 
+      #endregion
+
       #region INotifyPropertyChanged
+
       public event PropertyChangedEventHandler PropertyChanged;
 
       private void OnPropertyChanged(string propertyName)
       {
          PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
+
       #endregion
+
+      #region Members
 
       private DispatcherTimer intervalTimer;
       private ITimerUtility timerUtil;
+
+      #endregion
+
+      #region Private
 
       private void TimerElapsed()
       {
@@ -56,5 +72,7 @@ namespace TravelTracker.Models.Implementations
          intervalTimer.Interval = timerUtil.GetMinuteUpdateInterval(DateTime.Now);
          intervalTimer.Start();
       }
+
+      #endregion
    }
 }

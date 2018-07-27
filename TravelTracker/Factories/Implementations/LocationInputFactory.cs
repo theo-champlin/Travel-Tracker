@@ -9,6 +9,8 @@ namespace TravelTracker.Factories.Implementations
 
    public class LocationInputFactory : ILocationInputFactory
    {
+      #region Public
+
       public LocationInputViewModel Generate(ITheme currentTheme)
       {
          var locationWindowControl = new LocationInputViewModel(currentTheme);
@@ -22,6 +24,10 @@ namespace TravelTracker.Factories.Implementations
 
          return locationWindowControl;
       }
+
+      #endregion
+
+      #region Private
 
       private bool SetLocation(
          LocationInputViewModel locationWindowControl,
@@ -57,5 +63,7 @@ namespace TravelTracker.Factories.Implementations
          var locationWindow = new LocationInput(locationWindowControl);
          locationWindow.ShowDialog();
       }
+
+      #endregion
    }
 }

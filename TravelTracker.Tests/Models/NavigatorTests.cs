@@ -182,6 +182,55 @@ namespace TravelTracker.Tests.Models
          Assert.IsTrue(navigator.NavigateToNextTracker.CanExecute(null));
       }
 
+      [TestMethod]
+      public void NavigateToNextTracker_UpdatesTrackerWhenNotLast()
+      {
+         var navigator = new Navigator(GetMockedTrackerFactory(), null);
+
+         navigator.Add(null);
+         navigator.SkipToPrevious();
+
+         navigator.NavigateToNextTracker.Execute(null);
+         Assert.IsTrue(navigator.CurrentTracker == PossibleLocations.ElementAt(1));
+      }
+
+      [TestMethod]
+      public void NavigateToPreviousTracker_IsDiabledWithSingleTracker()
+      {
+         var navigator = new Navigator(GetMockedTrackerFactory(), null);
+         Assert.IsFalse(navigator.NavigateToPreviousTracker.CanExecute(null));
+      }
+
+      [TestMethod]
+      public void NavigateToPreviousTracker_IsEnabledWhenNotFirst()
+      {
+         var navigator = new Navigator(GetMockedTrackerFactory(), null);
+         navigator.Add(null);
+
+         Assert.IsTrue(navigator.NavigateToPreviousTracker.CanExecute(null));
+      }
+
+      [TestMethod]
+      public void NavigateToPreviousTracker_IsDisabledWhenFirst()
+      {
+         var navigator = new Navigator(GetMockedTrackerFactory(), null);
+         navigator.Add(null);
+         navigator.SkipToPrevious();
+
+         Assert.IsFalse(navigator.NavigateToPreviousTracker.CanExecute(null));
+      }
+
+      [TestMethod]
+      public void NavigateToPreviousTracker_UpdatesTrackerWhenNotFirst()
+      {
+         var navigator = new Navigator(GetMockedTrackerFactory(), null);
+
+         navigator.Add(null);
+         navigator.NavigateToPreviousTracker.Execute(null);
+
+         Assert.IsTrue(navigator.CurrentTracker == PossibleLocations.ElementAt(0));
+      }
+
       private static readonly List<ITravelTrackingViewModel> PossibleLocations
          = new List<ITravelTrackingViewModel>
       {

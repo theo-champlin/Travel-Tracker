@@ -3,14 +3,14 @@ using System.Windows.Input;
 
 namespace TravelTracker.Models.Interfaces
 {
-   using ViewModels;
+   using ViewModels.Interfaces;
 
    public interface INavigator : INotifyPropertyChanged
    {
       /// <summary>
       /// The current location set to be tracked.
       /// </summary>
-      TravelTrackingViewModel CurrentTracker
+      ITravelTrackingViewModel CurrentTracker
       {
          get;
       }

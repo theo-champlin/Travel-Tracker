@@ -5,13 +5,14 @@ namespace TravelTracker.Factories.Implementations
    using Interfaces;
    using Models.Interfaces;
    using ViewModels;
+   using ViewModels.Interfaces;
    using Views;
 
    public class LocationInputFactory : ILocationInputFactory
    {
       #region Public
 
-      public LocationInputViewModel Generate(ITheme currentTheme)
+      public ILocationInputViewModel Generate(ITheme currentTheme)
       {
          var locationWindowControl = new LocationInputViewModel(currentTheme);
 

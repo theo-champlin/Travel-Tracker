@@ -113,6 +113,8 @@
     <Compile Include="Services\Implementations\LocationDetailsFetcher.cs" />
     <Compile Include="Services\Implementations\LocationDetailsService.cs" />
     <Compile Include="Services\Implementations\LocationSetService.cs" />
+    <Compile Include="ViewModels\Interfaces\ILocationInputViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\ITravelTrackingViewModel.cs" />
     <Compile Include="ViewModels\LocationErrorViewModel.cs" />
     <Compile Include="ViewModels\TravelTrackingContainer.cs" />
     <Compile Include="Views\LocationError.xaml.cs">

@@ -4,13 +4,14 @@ using System.Windows.Input;
 namespace TravelTracker.ViewModels
 {
    using Commands;
-   using Factories.Implementations;
+   using Factories.Interfaces;
+   using Interfaces;
    using Models.Implementations;
    using Models.Interfaces;
    using Services.Implementations;
    using Services.Interfaces;
 
-   public class TravelTrackingViewModel
+   public class TravelTrackingViewModel : ITravelTrackingViewModel
    {
       #region Properties
 
@@ -26,10 +27,12 @@ namespace TravelTracker.ViewModels
 
       #region Public
 
-      public TravelTrackingViewModel(ITheme currentTheme)
+      public TravelTrackingViewModel(
+         ILocationInputFactory locationFactory,
+         ITheme currentTheme)
       {
          Location = new Location(
-            new LocationInputFactory(),
+            locationFactory,
             currentTheme);
 
          if (string.IsNullOrEmpty(Location.City))

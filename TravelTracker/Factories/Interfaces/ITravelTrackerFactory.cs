@@ -1,10 +1,10 @@
 ﻿namespace TravelTracker.Factories.Interfaces
 {
    using Models.Interfaces;
-   using ViewModels;
+   using ViewModels.Interfaces;
 
    public interface ITravelTrackerFactory
    {
-      TravelTrackingViewModel Generate(ITheme currentTheme);
+      ITravelTrackingViewModel Generate(ITheme currentTheme);
    }
 }

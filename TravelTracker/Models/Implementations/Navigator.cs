@@ -8,14 +8,14 @@ namespace TravelTracker.Models.Implementations
    using Commands;
    using Factories.Interfaces;
    using Interfaces;
-   using ViewModels;
+   using ViewModels.Interfaces;
 
    public class Navigator : INavigator
    {
       #region Properties
 
-      private TravelTrackingViewModel _currentTracker;
-      public TravelTrackingViewModel CurrentTracker
+      private ITravelTrackingViewModel _currentTracker;
+      public ITravelTrackingViewModel CurrentTracker
       {
          get
          {
@@ -147,8 +147,8 @@ namespace TravelTracker.Models.Implementations
 
       #region Members
 
-      private IList<TravelTrackingViewModel> travelTrackingOptions =
-         new List<TravelTrackingViewModel>();
+      private IList<ITravelTrackingViewModel> travelTrackingOptions =
+         new List<ITravelTrackingViewModel>();
 
       ITravelTrackerFactory trackerFactory;
 

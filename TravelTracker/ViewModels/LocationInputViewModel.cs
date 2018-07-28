@@ -4,12 +4,13 @@ using System.Windows.Input;
 namespace TravelTracker.ViewModels
 {
    using Commands;
+   using Interfaces;
    using Models.Implementations;
    using Models.Interfaces;
    using Services.Implementations;
    using Services.Interfaces;
 
-   public class LocationInputViewModel
+   public class LocationInputViewModel : ILocationInputViewModel
    {
       #region Properties
 

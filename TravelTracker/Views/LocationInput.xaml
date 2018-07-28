@@ -15,8 +15,16 @@
         BorderBrush="{Binding Theme.Foreground}"
         Height="100"
         Width="425">
-
-   <StackPanel>
+   <Window.InputBindings>
+      <KeyBinding
+         Command="{Binding CloseWindow}"
+         CommandParameter="{Binding
+            RelativeSource={RelativeSource FindAncestor, 
+            AncestorType={x:Type Window}}}"
+         Key="Return"
+         Modifiers="Shift"/>
+   </Window.InputBindings>
+   <StackPanel FocusManager.FocusedElement="{Binding ElementName=CountrySelector}">
       <Grid>
          <Grid.RowDefinitions>
             <RowDefinition Height="25"/>

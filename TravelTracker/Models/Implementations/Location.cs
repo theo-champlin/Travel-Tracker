@@ -16,6 +16,11 @@ namespace TravelTracker.Models.Implementations
       {
          get
          {
+            if (string.IsNullOrEmpty(Country) || string.IsNullOrEmpty(City))
+            {
+               return null;
+            }
+
             return City + ", " + Country;
          }
       }

@@ -9,6 +9,7 @@
         Height="125"
         Width="310"
         WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Background="{Binding Theme.SolidBackground}"
         BorderThickness="5"

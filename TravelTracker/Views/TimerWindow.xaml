@@ -10,6 +10,7 @@
         Width="300"
         AllowsTransparency="True"
         WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
         Background="{Binding Theme.Background}"
         BorderThickness="5"
         BorderBrush="{Binding Theme.Foreground}">

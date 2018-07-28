@@ -118,6 +118,21 @@
             Style="{DynamicResource ContextItemTemplate}"/>
       </ContextMenu>
    </Window.ContextMenu>
+   <Window.InputBindings>
+      <KeyBinding
+         Command="{Binding Navigator.AddTracker}"
+         CommandParameter="{Binding Theme}"
+         Key="OemPlus"
+         Modifiers="Shift"/>
+      <KeyBinding
+         Command="{Binding Navigator.NavigateToPreviousTracker}"
+         Key="Left"
+         Modifiers="Shift"/>
+      <KeyBinding
+         Command="{Binding Navigator.NavigateToNextTracker}"
+         Key="Right"
+         Modifiers="Shift"/>
+   </Window.InputBindings>
    <Grid>
       <Grid.ColumnDefinitions>
          <ColumnDefinition Width="5*"/>

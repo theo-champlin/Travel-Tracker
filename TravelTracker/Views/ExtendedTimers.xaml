@@ -6,20 +6,27 @@
         xmlns:local="clr-namespace:TravelTracker.Views"
         mc:Ignorable="d"
         Title="ExtendedTimers"
-        Height="300"
+        SizeToContent="Height"
         Width="300"
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Background="{Binding Theme.Background}"
         BorderThickness="5"
-        BorderBrush="{Binding Theme.Foreground}">
-
-   <StackPanel Margin="10">
+        BorderBrush="{Binding Theme.Foreground}"
+        ContextMenu="{StaticResource DefaultContextMenu}">
+   <Window.InputBindings>
+      <KeyBinding
+         Command="{Binding Navigator.AddTracker}"
+         CommandParameter="{Binding Theme}"
+         Key="OemPlus"
+         Modifiers="Shift"/>
+   </Window.InputBindings>
+   <StackPanel>
       <ItemsControl ItemsSource="{Binding Navigator.TravelTrackingOptions}">
          <ItemsControl.ItemTemplate>
             <DataTemplate>
-               <Control Template="{StaticResource Timer}"></Control>
+               <Control Margin="5" Template="{StaticResource Timer}"></Control>
             </DataTemplate>
          </ItemsControl.ItemTemplate>
       </ItemsControl>

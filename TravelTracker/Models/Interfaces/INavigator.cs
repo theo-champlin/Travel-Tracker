@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace TravelTracker.Models.Interfaces
@@ -14,6 +15,8 @@ namespace TravelTracker.Models.Interfaces
       {
          get;
       }
+
+      ObservableCollection<ITravelTrackingViewModel> TravelTrackingOptions { get; }
 
       /// <summary>
       /// Gives the user an opportunity to track a new location. Once the location is set, the

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
@@ -28,6 +28,9 @@ namespace TravelTracker.Models.Implementations
             OnPropertyChanged("CurrentTracker");
          }
       }
+
+      public ObservableCollection<ITravelTrackingViewModel> TravelTrackingOptions { get; set; } =
+         new ObservableCollection<ITravelTrackingViewModel>();
 
       private AddTracker _addTracker;
       public ICommand AddTracker
@@ -93,43 +96,43 @@ namespace TravelTracker.Models.Implementations
 
       public void Add(ITheme currentTheme)
       {
-         travelTrackingOptions.Add(trackerFactory.Generate(currentTheme));
-         CurrentTracker = travelTrackingOptions.Last();
+         TravelTrackingOptions.Add(trackerFactory.Generate(currentTheme));
+         CurrentTracker = TravelTrackingOptions.Last();
       }
 
       public bool IsNotLast()
       {
-         var indexOfCurrent = travelTrackingOptions.IndexOf(CurrentTracker);
-         return indexOfCurrent < travelTrackingOptions.Count - 1;
+         var indexOfCurrent = TravelTrackingOptions.IndexOf(CurrentTracker);
+         return indexOfCurrent < TravelTrackingOptions.Count - 1;
       }
 
       public void SkipToNext()
       {
-         var indexOfCurrent = travelTrackingOptions.IndexOf(CurrentTracker);
+         var indexOfCurrent = TravelTrackingOptions.IndexOf(CurrentTracker);
 
-         if (indexOfCurrent == travelTrackingOptions.Count - 1)
+         if (indexOfCurrent == TravelTrackingOptions.Count - 1)
          {
             return;
          }
 
-         CurrentTracker = travelTrackingOptions.ElementAt(indexOfCurrent + 1);
+         CurrentTracker = TravelTrackingOptions.ElementAt(indexOfCurrent + 1);
       }
 
       public bool IsNotFirst()
       {
-         return travelTrackingOptions.IndexOf(CurrentTracker) > 0;
+         return TravelTrackingOptions.IndexOf(CurrentTracker) > 0;
       }
 
       public void SkipToPrevious()
       {
-         var indexOfCurrent = travelTrackingOptions.IndexOf(CurrentTracker);
+         var indexOfCurrent = TravelTrackingOptions.IndexOf(CurrentTracker);
 
          if (indexOfCurrent == 0)
          {
             return;
          }
 
-         CurrentTracker = travelTrackingOptions.ElementAt(indexOfCurrent - 1);
+         CurrentTracker = TravelTrackingOptions.ElementAt(indexOfCurrent - 1);
       }
 
       #endregion
@@ -146,9 +149,6 @@ namespace TravelTracker.Models.Implementations
       #endregion
 
       #region Members
-
-      private IList<ITravelTrackingViewModel> travelTrackingOptions =
-         new List<ITravelTrackingViewModel>();
 
       ITravelTrackerFactory trackerFactory;
 

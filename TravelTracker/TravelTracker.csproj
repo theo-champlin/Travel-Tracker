@@ -88,6 +88,7 @@
     <Compile Include="Commands\NavigateToWiki.cs" />
     <Compile Include="Commands\CloseWindow.cs" />
     <Compile Include="Commands\SetExitMode.cs" />
+    <Compile Include="Commands\SetExtendedView.cs" />
     <Compile Include="Commands\UpdateTheme.cs" />
     <Compile Include="Factories\Implementations\LocationInputFactory.cs" />
     <Compile Include="Factories\Implementations\TravelTrackerFactory.cs" />
@@ -117,6 +118,9 @@
     <Compile Include="ViewModels\Interfaces\ITravelTrackingViewModel.cs" />
     <Compile Include="ViewModels\LocationErrorViewModel.cs" />
     <Compile Include="ViewModels\TravelTrackingContainer.cs" />
+    <Compile Include="Views\ExtendedTimers.xaml.cs">
+      <DependentUpon>ExtendedTimers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LocationError.xaml.cs">
       <DependentUpon>LocationError.xaml</DependentUpon>
     </Compile>
@@ -125,6 +129,10 @@
     </Compile>
     <Compile Include="ViewModels\LocationInputViewModel.cs" />
     <Compile Include="ViewModels\TravelTrackingViewModel.cs" />
+    <Page Include="Views\ExtendedTimers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LocationError.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

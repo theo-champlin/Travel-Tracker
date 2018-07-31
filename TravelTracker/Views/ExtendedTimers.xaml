@@ -1,0 +1,27 @@
+﻿<Window x:Class="TravelTracker.Views.ExtendedTimers"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelTracker.Views"
+        mc:Ignorable="d"
+        Title="ExtendedTimers"
+        Height="300"
+        Width="300"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="{Binding Theme.Background}"
+        BorderThickness="5"
+        BorderBrush="{Binding Theme.Foreground}">
+
+   <StackPanel Margin="10">
+      <ItemsControl ItemsSource="{Binding Navigator.TravelTrackingOptions}">
+         <ItemsControl.ItemTemplate>
+            <DataTemplate>
+               <Control Template="{StaticResource Timer}"></Control>
+            </DataTemplate>
+         </ItemsControl.ItemTemplate>
+      </ItemsControl>
+   </StackPanel>
+</Window>

@@ -25,6 +25,20 @@ namespace TravelTracker.ViewModels
          }
       }
 
+      private ICommand _setExtendedView;
+      public ICommand SetExtendedView
+      {
+         get
+         {
+            if (_setExtendedView == null)
+            {
+               _setExtendedView = new SetExtendedView(this);
+            }
+
+            return _setExtendedView;
+         }
+      }
+
       public INavigator Navigator { get; private set; }
 
       public ITheme Theme { get; private set; }

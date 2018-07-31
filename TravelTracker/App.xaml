@@ -269,5 +269,58 @@
          <Path Fill="#FF83D4ED" StrokeThickness="0.1" Data="m 28.6748 12.4077 c -0.4911 0 -0.968 0.063 -1.4226 0.1807 -0.8141 -1.1759 -2.172 -1.9463 -3.7107 -1.9463 -0.4997 0 -0.9797 0.0825 -1.4292 0.2324 -0.7574 -3.3521 -3.7522 -5.8564 -7.3334 -5.8564 -4.153 0 -7.5197 3.3668 -7.5197 7.5203 0 0.0856 0.004 0.1704 0.006 0.2549 C 6.7367 12.6277 6.1741 12.5384 5.5911 12.5384 2.5035 12.5386 0 15.0414 0 18.1297 c 0 3.0876 2.5035 5.5907 5.5909 5.5907 h 16.7395 3.1069 3.2369 c 3.1243 0 5.6568 -2.5326 5.6568 -5.6564 0 -3.1238 -2.5325 -5.6563 -5.6567 -5.6563 z"/>
          <Path Fill="#FF9FDEF7" StrokeThickness="0.1" Data="m 28.6748 12.4077 c -0.4911 0 -0.968 0.063 -1.4226 0.1807 -0.8141 -1.1759 -2.172 -1.9463 -3.7107 -1.9463 -0.4997 0 -0.9797 0.0825 -1.4292 0.2324 -0.7574 -3.3521 -3.7522 -5.8564 -7.3334 -5.8564 -0.8121 0 -1.5934 0.1303 -2.3261 0.3685 -0.3329 1.3347 -0.5106 2.7309 -0.5106 4.1686 0 5.8809 2.957 11.0703 7.4645 14.165 h 2.9243 3.1069 3.2369 c 3.1243 0 5.6568 -2.5326 5.6568 -5.6564 -1e-4 -3.1237 -2.5326 -5.6561 -5.6568 -5.6561 z"/>
       </Canvas>
+
+      <ControlTemplate x:Key="Timer">
+         <Grid>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="5*"/>
+                     <ColumnDefinition Width="2*"/>
+                  </Grid.ColumnDefinitions>
+                  <Grid
+                     Grid.Row="0"
+                     Grid.Column="0">
+                     <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="1*"/>
+                     </Grid.RowDefinitions>
+                     <TextBlock
+                        Background="Transparent"
+                        Margin="2, 2, 0, 0"
+                        Grid.Row="0"
+                        Grid.Column="0">
+                        <Hyperlink
+                           Command="{Binding NavigateToWiki}"
+                           TextDecorations="None">
+                           <TextBlock
+                              FontSize="12"
+                              Foreground="{Binding DataContext.Theme.Foreground, RelativeSource={RelativeSource AncestorType=StackPanel}}"
+                              Text="{Binding Location.FullName}"/>
+                        </Hyperlink>
+                     </TextBlock>
+                     <TextBlock
+                        FontSize="40"
+                        FontWeight="Bold"
+                        Foreground="{Binding DataContext.Theme.Foreground, RelativeSource={RelativeSource AncestorType=StackPanel}}"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        Text="{Binding Timer.FormattedTime}"
+                        VerticalAlignment="Center"/>
+                  </Grid>
+                  <Canvas
+                     Background="Transparent"
+                     Grid.Row="0"
+                     Grid.Column="1"
+                     Margin="5">
+                     <Canvas.InputBindings>
+                        <MouseBinding
+                           Gesture="LeftClick"
+                           Command="{Binding Weather.NavigateToWeather}"/>
+                     </Canvas.InputBindings>
+                     <ContentControl Content="{Binding Weather.Icon}"/>
+                  </Canvas>
+               </Grid>
+      </ControlTemplate>
    </Application.Resources>
 </Application>

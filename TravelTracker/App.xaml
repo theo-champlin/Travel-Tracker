@@ -381,55 +381,55 @@
 
       <ControlTemplate x:Key="Timer">
          <Grid>
-                  <Grid.ColumnDefinitions>
-                     <ColumnDefinition Width="5*"/>
-                     <ColumnDefinition Width="2*"/>
-                  </Grid.ColumnDefinitions>
-                  <Grid
-                     Grid.Row="0"
-                     Grid.Column="0">
-                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="1*"/>
-                     </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="5*"/>
+               <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid
+               Grid.Row="0"
+               Grid.Column="0">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="1*"/>
+                  <RowDefinition Height="3*"/>
+                  <RowDefinition Height="1*"/>
+               </Grid.RowDefinitions>
+               <TextBlock
+                  Background="Transparent"
+                  Margin="2, 2, 0, 0"
+                  Grid.Row="0"
+                  Grid.Column="0">
+                  <Hyperlink
+                     Command="{Binding NavigateToWiki}"
+                     TextDecorations="None">
                      <TextBlock
-                        Background="Transparent"
-                        Margin="2, 2, 0, 0"
-                        Grid.Row="0"
-                        Grid.Column="0">
-                        <Hyperlink
-                           Command="{Binding NavigateToWiki}"
-                           TextDecorations="None">
-                           <TextBlock
-                              FontSize="12"
-                              Foreground="{Binding DataContext.Theme.Foreground, RelativeSource={RelativeSource AncestorType=StackPanel}}"
-                              Text="{Binding Location.FullName}"/>
-                        </Hyperlink>
-                     </TextBlock>
-                     <TextBlock
-                        FontSize="40"
-                        FontWeight="Bold"
+                        FontSize="12"
                         Foreground="{Binding DataContext.Theme.Foreground, RelativeSource={RelativeSource AncestorType=StackPanel}}"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        HorizontalAlignment="Center"
-                        Text="{Binding Timer.FormattedTime}"
-                        VerticalAlignment="Center"/>
-                  </Grid>
-                  <Canvas
-                     Background="Transparent"
-                     Grid.Row="0"
-                     Grid.Column="1"
-                     Margin="5">
-                     <Canvas.InputBindings>
-                        <MouseBinding
-                           Gesture="LeftClick"
-                           Command="{Binding Weather.NavigateToWeather}"/>
-                     </Canvas.InputBindings>
-                     <ContentControl Content="{Binding Weather.Icon}"/>
-                  </Canvas>
-               </Grid>
+                        Text="{Binding Location.FullName}"/>
+                  </Hyperlink>
+               </TextBlock>
+               <TextBlock
+                  FontSize="40"
+                  FontWeight="Bold"
+                  Foreground="{Binding DataContext.Theme.Foreground, RelativeSource={RelativeSource AncestorType=StackPanel}}"
+                  Grid.Row="1"
+                  Grid.Column="0"
+                  HorizontalAlignment="Center"
+                  Text="{Binding Timer.FormattedTime}"
+                  VerticalAlignment="Center"/>
+            </Grid>
+            <Canvas
+               Background="Transparent"
+               Grid.Row="0"
+               Grid.Column="1"
+               Margin="5">
+               <Canvas.InputBindings>
+                  <MouseBinding
+                     Gesture="LeftClick"
+                     Command="{Binding Weather.NavigateToWeather}"/>
+               </Canvas.InputBindings>
+               <ContentControl Content="{Binding Weather.Icon}"/>
+            </Canvas>
+         </Grid>
       </ControlTemplate>
    </Application.Resources>
 </Application>

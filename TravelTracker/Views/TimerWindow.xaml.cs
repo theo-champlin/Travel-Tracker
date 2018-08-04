@@ -9,10 +9,10 @@ namespace TravelTracker.Views
    /// </summary>
    public partial class TimerWindow : Window
    {
-      public TimerWindow()
+      public TimerWindow(TravelTrackingContainer windowContext = null)
       {
          InitializeComponent();
-         DataContext = new TravelTrackingContainer();
+         DataContext = windowContext ?? new TravelTrackingContainer();
 
          MouseLeftButtonDown += delegate { DragMove(); };
       }

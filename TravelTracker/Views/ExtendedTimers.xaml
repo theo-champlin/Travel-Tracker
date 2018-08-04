@@ -21,6 +21,13 @@
          CommandParameter="{Binding Theme}"
          Key="OemPlus"
          Modifiers="Shift"/>
+      <KeyBinding
+         Command="{Binding SetDefaultView}"
+         CommandParameter="{Binding
+            RelativeSource={RelativeSource FindAncestor, 
+            AncestorType={x:Type Window}}}"
+         Key="Down"
+         Modifiers="Shift"/>
    </Window.InputBindings>
    <StackPanel>
       <ItemsControl ItemsSource="{Binding Navigator.TravelTrackingOptions}">

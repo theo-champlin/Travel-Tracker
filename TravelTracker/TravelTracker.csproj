@@ -97,6 +97,7 @@
     <Compile Include="Commands\NavigateToWeather.cs" />
     <Compile Include="Commands\NavigateToWiki.cs" />
     <Compile Include="Commands\CloseWindow.cs" />
+    <Compile Include="Commands\SetDefaultView.cs" />
     <Compile Include="Commands\SetExitMode.cs" />
     <Compile Include="Commands\SetExtendedView.cs" />
     <Compile Include="Commands\UpdateTheme.cs" />

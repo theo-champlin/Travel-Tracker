@@ -29,6 +29,13 @@
          Command="{Binding Navigator.NavigateToNextTracker}"
          Key="Right"
          Modifiers="Shift"/>
+      <KeyBinding
+         Command="{Binding SetExtendedView}"
+         CommandParameter="{Binding
+            RelativeSource={RelativeSource FindAncestor, 
+            AncestorType={x:Type Window}}}"
+         Key="Down"
+         Modifiers="Shift"/>
    </Window.InputBindings>
    <StackPanel>
       <Control

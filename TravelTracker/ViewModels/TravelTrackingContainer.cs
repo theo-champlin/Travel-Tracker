@@ -39,6 +39,20 @@ namespace TravelTracker.ViewModels
          }
       }
 
+      private ICommand _setDefaultView;
+      public ICommand SetDefaultView
+      {
+         get
+         {
+            if (_setDefaultView == null)
+            {
+               _setDefaultView = new SetDefaultView(this);
+            }
+
+            return _setDefaultView;
+         }
+      }
+
       public INavigator Navigator { get; private set; }
 
       public ITheme Theme { get; private set; }
